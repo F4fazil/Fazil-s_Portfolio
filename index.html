@@ -1,778 +1,1683 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-	<title>Fazil Qazi Portfolio</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8">
+    <title>Fazil Qazi - Flutter Developer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #000;
+            color: #fff;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
 
-	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: all 0.8s ease;
+        }
 
-	<link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-	<link rel="stylesheet" href="css/animate.css">
+        .loading-screen.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
 
-	<link rel="stylesheet" href="css/owl.carousel.min.css">
-	<link rel="stylesheet" href="css/owl.theme.default.min.css">
-	<link rel="stylesheet" href="css/magnific-popup.css">
+        .loading-logo {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ffbd39, #ff6b39, #ffbd39);
+            background-size: 200% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: logoGlow 2s ease-in-out infinite, logoFloat 3s ease-in-out infinite;
+            margin-bottom: 30px;
+        }
 
-	<link rel="stylesheet" href="css/aos.css">
+        .loading-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
 
-	<link rel="stylesheet" href="css/ionicons.min.css">
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(255, 189, 57, 0.1);
+            border-top: 3px solid #ffbd39;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
 
-	<link rel="stylesheet" href="css/flaticon.css">
-	<link rel="stylesheet" href="css/icomoon.css">
-	<link rel="stylesheet" href="css/style.css">
+        .loading-progress {
+            width: 200px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin-top: 30px;
+            overflow: hidden;
+        }
 
+        .loading-progress-bar {
+            height: 100%;
+            background: linear-gradient(45deg, #ffbd39, #ff6b39);
+            border-radius: 2px;
+            width: 0%;
+            animation: progressLoad 3s ease-out forwards;
+        }
 
+        @keyframes logoGlow {
+            0%, 100% { 
+                background-position: 0% 50%;
+                filter: drop-shadow(0 0 10px rgba(255, 189, 57, 0.3));
+            }
+            50% { 
+                background-position: 100% 50%;
+                filter: drop-shadow(0 0 20px rgba(255, 189, 57, 0.6));
+            }
+        }
 
-	<style>
-		/*======================================
-//--//-->   ABOUT
-======================================*/
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
 
-		.about-mf .box-shadow-full {
-			padding-top: 4rem;
-			padding-bottom: 4rem;
-		}
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
-		.about-mf .about-img {
-			margin-bottom: 2rem;
-		}
+        @keyframes progressLoad {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
 
-		.about-mf .about-img img {
-			margin-left: 10px;
-		}
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
 
+        /* Galaxy Background */
+        .galaxy-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at center, rgba(16, 16, 40, 0.8) 0%, #000 70%),
+                radial-gradient(circle at 25% 25%, rgba(120, 119, 198, 0.3) 0%, transparent 25%),
+                radial-gradient(circle at 75% 75%, rgba(255, 118, 117, 0.2) 0%, transparent 25%),
+                radial-gradient(circle at 85% 15%, rgba(142, 68, 173, 0.3) 0%, transparent 25%),
+                radial-gradient(circle at 15% 85%, rgba(26, 188, 156, 0.2) 0%, transparent 25%);
+            z-index: -2;
+            animation: galaxyPulse 30s ease-in-out infinite;
+        }
 
-		.skill-mf .progress {
-			/* background-color: #cde1f8; */
-			margin: .5rem 0 1.2rem 0;
-			border-radius: 0;
-			height: .7rem;
-		}
+        @keyframes galaxyPulse {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
 
-		.skill-mf .progress .progress-bar {
-			height: .7rem;
-			background-color: #ffbd39;
-		}
+        /* Animated Nodes */
+        .galaxy-nodes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
 
+        .node {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.1) 70%, transparent 100%);
+            animation: nodeFloat 15s infinite ease-in-out;
+        }
 
-		/* Animation styles */
-		#typing-animation {
-			position: relative;
-			font-size: 30px;
-			font-weight: bold;
-			color: rgb(255, 255, 255);
-			overflow: hidden;
-			white-space: nowrap;
-			animation: typing 3s steps(20, end) infinite;
-		}
+        .node::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200%;
+            height: 200%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: nodeRipple 4s infinite ease-out;
+        }
 
-		#typing-animation:before {
-			content: "";
-			/* position: absolute; */
-			top: 0;
-			left: 0;
-			width: 0;
-			height: 100%;
-			background-color: #ccc;
-			animation: typing-cursor 0.5s ease-in-out infinite;
-		}
+        .node::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            border: 1px solid rgba(255, 189, 57, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: nodeRipple 6s infinite ease-out 2s;
+        }
 
-		@keyframes typing {
-			from {
-				width: 0;
-			}
+        @keyframes nodeFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.6; }
+            25% { transform: translateY(-20px) rotate(90deg); opacity: 1; }
+            50% { transform: translateY(10px) rotate(180deg); opacity: 0.8; }
+            75% { transform: translateY(-15px) rotate(270deg); opacity: 0.9; }
+        }
 
-			to {
-				width: 100%;
-			}
-		}
+        @keyframes nodeRipple {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+        }
 
-		@keyframes typing-cursor {
-			from {
-				width: 5px;
-			}
+        /* Node sizes and positions */
+        .node-small { width: 4px; height: 4px; }
+        .node-medium { width: 8px; height: 8px; }
+        .node-large { width: 12px; height: 12px; }
 
-			to {
-				width: 0;
-			}
-		}
+        /* Connecting lines */
+        .connection-line {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 189, 57, 0.3), transparent);
+            transform-origin: left center;
+            animation: lineGlow 8s infinite ease-in-out;
+        }
 
+        @keyframes lineGlow {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.6; }
+        }
+        
+        /* Navigation */
+        .navbar {
+            background: rgba(0,0,0,0.95) !important;
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+        }
+        
+        .navbar-brand, .nav-link {
+            color: #fff !important;
+            font-weight: 500;
+        }
+        
+        .nav-link:hover {
+            color: #ffbd39 !important;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
 
-		/* project image zoom effect */
+        /* Ensure content is above background */
+        .hero .container {
+            position: relative;
+            z-index: 10;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ffbd39, #ff6b39, #ffbd39);
+            background-size: 200% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            animation: nameGlow 3s ease-in-out infinite, textSlideIn 1s ease-out;
+            text-shadow: 0 0 30px rgba(255, 189, 57, 0.5);
+        }
 
-		.zoom-effect {
-			overflow: hidden;
-			transition: transform 0.3s ease-out;
-		}
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 30px;
+            animation: typewriter 3s steps(60) 1s both, fadeInUp 1s ease-out 0.5s both;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid #ffbd39;
+        }
 
-		.zoom-effect:hover {
-			transform: scale(1.1);
-		}
-	</style>
+        /* Remove cursor after typing completes */
+        .hero p.typing-complete {
+            border-right: none;
+        }
 
+        /* Text Animations */
+        @keyframes nameGlow {
+            0%, 100% {
+                background-position: 0% 50%;
+                filter: brightness(1) drop-shadow(0 0 10px rgba(255, 189, 57, 0.3));
+            }
+            50% {
+                background-position: 100% 50%;
+                filter: brightness(1.2) drop-shadow(0 0 20px rgba(255, 189, 57, 0.6));
+            }
+        }
 
+        @keyframes textSlideIn {
+            0% {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes typewriter {
+            0% {
+                width: 0;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Blinking cursor effect - removed as we'll handle it with JS */
+
+        /* Scroll Triggered Animations */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .scroll-animate.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-animate-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .scroll-animate-left.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scroll-animate-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .scroll-animate-right.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scroll-animate-scale {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .scroll-animate-scale.animate {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Staggered animation for project cards */
+        .project-card {
+            transition-delay: 0s;
+        }
+
+        .project-card:nth-child(1) { transition-delay: 0.1s; }
+        .project-card:nth-child(2) { transition-delay: 0.2s; }
+        .project-card:nth-child(3) { transition-delay: 0.3s; }
+        .project-card:nth-child(4) { transition-delay: 0.4s; }
+        .project-card:nth-child(5) { transition-delay: 0.5s; }
+        .project-card:nth-child(6) { transition-delay: 0.6s; }
+        .project-card:nth-child(7) { transition-delay: 0.7s; }
+        .project-card:nth-child(8) { transition-delay: 0.8s; }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #ffbd39, #ff6b39);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            color: white;
+        }
+        
+        /* Sections */
+        .section {
+            padding: 100px 0;
+        }
+        
+        .section-dark {
+            background: #1a1a1a;
+        }
+        
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 50px;
+            color: #ffbd39;
+        }
+        
+        /* About Section */
+        .about-img {
+            border-radius: 15px;
+            max-width: 100%;
+        }
+        
+        .skill-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .skill-item:hover {
+            background: rgba(255, 189, 57, 0.1);
+            border-color: rgba(255, 189, 57, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 189, 57, 0.2);
+        }
+        
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .skill-item:hover .skill-name {
+            color: #ffbd39;
+        }
+        
+        .skill-bar {
+            height: 10px;
+            background: #333;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .skill-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, rgba(255, 189, 57, 0.1), rgba(255, 107, 57, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .skill-item:hover .skill-bar::before {
+            opacity: 1;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(45deg, #ffbd39, #ff6b39);
+            border-radius: 5px;
+            transition: all 0.8s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .skill-item:hover .skill-progress::after {
+            left: 100%;
+        }
+
+        .skill-percentage {
+            font-weight: 600;
+            color: #ffbd39;
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover .skill-percentage {
+            text-shadow: 0 0 10px rgba(255, 189, 57, 0.5);
+        }
+
+        /* Testimonials */
+        .testimonial-card {
+            background: #1a1a1a;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid #333;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(45deg, #ffbd39, #ff6b39);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            border-color: #ffbd39;
+            box-shadow: 0 10px 30px rgba(255, 189, 57, 0.1);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ffbd39, #ff6b39);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            margin-right: 15px;
+        }
+
+        .author-info h5 {
+            color: #ffbd39;
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .author-info p {
+            color: rgba(255,255,255,0.7);
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .quote-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            color: rgba(255, 189, 57, 0.2);
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background: #1a1a1a;
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid #333;
+            margin-top: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            color: #ffbd39;
+            font-weight: 500;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 12px 15px;
+            color: #fff !important;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #ffbd39;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 189, 57, 0.2);
+            color: #fff !important;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.5) !important;
+        }
+
+        .form-control::-webkit-input-placeholder {
+            color: rgba(255, 255, 255, 0.5) !important;
+        }
+
+        .form-control::-moz-placeholder {
+            color: rgba(255, 255, 255, 0.5) !important;
+        }
+
+        .form-control:-ms-input-placeholder {
+            color: rgba(255, 255, 255, 0.5) !important;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #ffbd39, #ff6b39);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 189, 57, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .form-message {
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: center;
+            display: none;
+        }
+
+        .form-message.success {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #22c55e;
+        }
+
+        .form-message.error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+        }
+        
+        /* Projects */
+        .project-card {
+            background: #1a1a1a;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+            border: 1px solid #333;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: #ffbd39;
+        }
+        
+        .project-img {
+            width: 100%;
+            height: 200px;
+            background: #333;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #ffbd39;
+        }
+        
+        .tech-tag {
+            background: rgba(255,189,57,0.2);
+            color: #ffbd39;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+        
+        /* Contact */
+        .contact-item {
+            text-align: center;
+            padding: 30px 20px;
+            background: #1a1a1a;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border: 1px solid #333;
+            transition: transform 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-5px);
+            border-color: #ffbd39;
+        }
+        
+        .contact-icon {
+            font-size: 2rem;
+            color: #ffbd39;
+            margin-bottom: 15px;
+        }
+        
+        /* Project Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            background: #1a1a1a;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            border: 1px solid #333;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: #ffbd39;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: #ff6b39;
+        }
+
+        .modal-title {
+            color: #ffbd39;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .modal-description {
+            color: rgba(255,255,255,0.9);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .modal-features {
+            margin-bottom: 20px;
+        }
+
+        .modal-features h4 {
+            color: #ffbd39;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .modal-features ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .modal-features li {
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .modal-features li:before {
+            content: "→";
+            color: #ffbd39;
+            position: absolute;
+            left: 0;
+        }
+
+        .view-details-btn {
+            background: linear-gradient(45deg, #ffbd39, #ff6b39);
+            border: none;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .view-details-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .modal-content {
+                padding: 20px;
+                margin: 20px;
+            }
+        }
+    </style>
 </head>
 
-<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
-
-
-	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
-		<div class="container">
-			<a class="navbar-brand" href="index.html">Fazil Qazi</a>
-			<button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse"
-				data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="oi oi-menu"></span> Menu
-			</button>
-
-			<div class="collapse navbar-collapse" id="ftco-nav">
-				<ul class="navbar-nav nav ml-auto">
-					<li class="nav-item"><a href="#home-section" class="nav-link"><span>Home</span></a></li>
-					<li class="nav-item"><a href="#about-section" class="nav-link"><span>About</span></a></li>
-					<!-- <li class="nav-item"><a href="#resume-section" class="nav-link"><span>Resume</span></a></li> -->
-					<li class="nav-item"><a href="#project-section" class="nav-link"><span>Projects</span></a></li>
-					<li class="nav-item"><a href="#contact-section" class="nav-link"><span>Contact</span></a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-	<section id="home-section" class="hero">
-		<div class="home-slider  owl-carousel">
-			<div class="slider-item ">
-				<div class="overlay"></div>
-				<div class="container">
-					<div class="row d-md-flex no-gutters slider-text align-items-end justify-content-end"
-						data-scrollax-parent="true">
-						<div class="one-third js-fullheight order-md-last img"
-							style="background-image:url(images/bg_2.jpg);">
-							<div class="overlay"></div>
-						</div>
-						<div class="one-forth d-flex  align-items-center ftco-animate"
-							data-scrollax=" properties: { translateY: '70%' }">
-							<div class="text">
-								<span class="subheading">Hello!</span>
-								<h1 class="mb-4 mt-3">I'm <span>Fazil Qazi</span></h1>
-
-								<!-- Element to contain animated typing -->
-								<span id="typing-animation"></span>
-
-								<script>
-
-									// Initialize the typing animation
-									const typingAnimationElement = document.getElementById('typing-animation');
-
-									// Create an array of typing text
-									const typingTexts = [
-										'Flutter Developer  ',
-										'Software Engineer ',
-										//'NativeFrame Designs   ',
-									];
-
-									// Create a function to display the typing animation for a given text
-									function playTypingAnimation(text) {
-										// Loop through each character and add it to the element
-										for (let i = 0; i < text.length; i++) {
-											setTimeout(() => {
-												typingAnimationElement.textContent += text[i];
-											}, i * 50); // Increase the delay to slow down the typing animation
-										}
-
-										// Once the animation is complete, reset the text and start over
-										setTimeout(() => {
-											typingAnimationElement.textContent = '';
-											playTypingAnimation(typingTexts[(typingTexts.indexOf(text) + 1) % typingTexts.length]);
-										}, text.length * 100);
-									}
-
-									// Start the typing animation loop
-									playTypingAnimation(typingTexts[0]);
-
-								</script>
-
-								<br>
-								<br>
-								<!-- <h2>Senior React Native Developer</h2> -->
-								<!-- <h2 class="d-flex" style="margin-bottom: 0">With over 5 years of experience</h2> -->
-								<!-- <br> -->
-								<p><a href="https://www.linkedin.com/in/fazil-qazi-93050a240/"
-										class="btn btn-primary py-3 px-4">linkedin</a>
-									 <a href="cv/Fazil_Qazi_CV.pdf" target="_blank"
-        class="btn btn-white btn-outline-white py-3 px-4">Open CV </a>
-		<a href="cv/Fazil_Qazi_CV.pdf" download="Fazil_Qazi_CV.pdf"
-        class="btn btn-white btn-outline-white py-3 px-4">Download CV</a>
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-
-	<!-- 
-    <section class="ftco-about img ftco-section ftco-no-pb" id="about-section"> -->
-	<div class="container">
-		<div class="row">
-			<div class="row d-flex align-items-stretch">
-				<!-- <div class="row d-flex"> -->
-				<div class="col-md-6 col-lg-5 d-flex">
-					<div class="img-about img d-flex align-items-stretch">
-						<div class="overlay">
-							<div class="row">
-								<div class="col-sm-6 col-md-5">
-									<div class="about-img">
-										<img src="images/fazil.png" class="img-fluid rounded b-shadow-a" alt="">
-									</div>
-								</div>
-								<!-- Details next to profile image -->
-								<div class="col-sm-6 col-md-7">
-									<div class="about-info">
-										<p><span class="title-s">Name: </span> <span>Fazil Qazi</span></p>
-										<p><span class="title-s">Job Role: </span> <span>Senior Flutter Developer</span>
-										</p>
-										<p><span class="title-s">Experience: </span> <span>3 Years</span></p>
-										<p><span class="title-s">Address: </span> <span>Lahore,Pakistan</span></p>
-									</div>
-								</div>
-							</div>
-
-							<div class="skill-mf">
-								<p class="title-s">Skills</p>
-								<span>Flutter</span> <span class="pull-right">95%</span>
-								<div class="progress">
-									<div class="progress-bar" role="progressbar" style="width: 95%;" aria-valuenow="95"
-										aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-
-								<span></span>Dart <span class="pull-right">90%</span>
-								<div class="progress">
-									<div class="progress-bar" role="progressbar" style="width: 85%" aria-valuenow="85"
-										aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-
-
-
-								<span>API Integration</span> <span class="pull-right">90%</span>
-								<div class="progress">
-									<div class="progress-bar" role="progressbar" style="width: 85%" aria-valuenow="85"
-										aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-
-								<span>UI/UX</span> <span class="pull-right">95%</span>
-								<div class="progress">
-									<div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
-										aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-6 col-lg-7 pl-lg-5 pb-5 about-section animated fadeIn">
-					<div class="row justify-content-start pb-3">
-						<div class="col-md-12 heading-section ftco-animate">
-
-							<h1 class="big">About</h1>
-							<h2 class="mb-4">About Me</h2>
-
-							<p>I am a skilled Flutter developer with 3 years of hands-on experience building hybrid
-								mobile applications for iOS and Android. My expertise lies in creating seamless,
-								performance-driven apps with a strong focus on user experience and modern design
-								principles. I excel in utilizing native modules and APIs to deliver robust, scalable
-								solutions that meet diverse business needs.
-
-								With a solid foundation in front-end development and proficiency in dart , I have a
-								proven track record of integrating complex APIs, managing state, and delivering polished
-								UI/UX designs. I am passionate about pushing the boundaries of mobile technology to
-								build intuitive and feature-rich applications that enhance user engagement.
-							</p>
-							<ul class="about-info mt-4 px-md-0 px-2">
-								<li class="d-flex"><span>Key Skills: </span> <span> Flutter Developer, Dart, </span>
-								</li>
-								<li class="d-flex"><span>Domain: </span> <span> Mobile App Development
-										Specialist</span></li>
-								<li class="d-flex"><span>Education: </span> <span> Bachelor of Computer Science</span>
-								</li>
-								<li class="d-flex"><span>Languages: </span> <span> English, Urdu</span></li>
-								<li class="d-flex"><span>Other Skills: </span> <span> UI/UX, HTML, CSS, C++,
-										</span></li>
-								<li class="d-flex"><span>Interests: </span> <span> Traveling,Nature Photography,
-									Swimming, Learning</span></li>
-
-
-							</ul>
-						</div>
-					</div>
-
-
-					<div class="counter-wrap ftco-animate d-flex mt-md-3">
-						<div class="text">
-							<!-- <p class="mb-4">
-									<span class="number" data-number="30">23</span> <span>+</span>
-									<span>&nbsp; Projects completed</span>
-								</p> -->
-							<!-- <p><a href="in/zubair-ahmad-a54633283" class="btn btn-primary py-3 px-3">LinkedIn</a></p> -->
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	</section>
-	<!-- 
-
-
-	
-    <section class="ftco-section ftco-no-pb" id="resume-section">
-    	<div class="container">
-    		<div class="row justify-content-center pb-5"> -->
-	<!-- <div class="col-md-10 heading-section text-center ftco-animate">
-          	<h1 class="big big-2">Resume</h1>
-            <h2 class="mb-4">Resume</h2>
-            <p>Senior React Native worked experience for three years,includes high quality hybrid applications for Iphone and Android. </div>
-        </div> -->
-
-	<div class="row">
-		<h1 class="big-4">Experience</h1>
-		<div class="underline"></div>
-	</div>
-	<br>
-
-	<div class="row">
-
-
-		<div class="col-md-6">
-			<div class="resume-wrap ftco-animate">
-				<span class="date">2023-2024</span>
-				<h2>Internship As a Flutter Developer </h2>
-				<span class="position">PureSoft</span>
-				<p class="mt-4">Puresoft is a mobile and web application development company. Hasbisoft serves diverse
-					operational areas through the provision of client oriented software, mobile applications developed
-					for Android and iOS and web applications.
-				<ul>
-					<li>As a student i worked on App Design,development and testing.</li>
-					<li> learn about bulid responsive and scalable apps fior both iOS and Andriod demonstrates strong
-						problem-solving skills..</li>
-					<!-- <li>.</li> -->
-				</ul>
-				</p>
-			</div>
-
-		</div>
-
-		<div class="col-md-6">
-			<div class="resume-wrap ftco-animate">
-				<span class="date">Feb 2025- June 2025</span>
-				<h2>Remote Job As a Flutter Developer </h2>
-				<span class="position">Techsynnovate</span>
-				<p class="mt-4">Techsynnovate is a Nigerian company that serves diverse operational sectors by providing client-oriented software solutions, mobile applications for both Android and iOS, and web applications.
-				<ul>
-					<li>As a developer, I built the RentNova app, which includes features like profile switching between tenants and landlords, allowing users to access role-specific dashboards and functionalities within a single app. This feature enhances user experience by ensuring seamless interaction based on the user's role.</li>
-					
-					<!-- <li>.</li> -->
-				</ul>
-				</p>
-			</div>
-
-		</div>
-	</div>
-
-	<br>
-	<br>
-
-	<div class="row">
-		<h1 class="big-4">Education</h1>
-		<div class="underline"></div>
-	</div>
-	<br>
-
-	<div class="row">
-		<div class="col-md-6">
-			<div class="resume-wrap ftco-animate">
-				<span class="date">2020-2024</span>
-				<h2>Bachelor of Computer Science</h2>
-				<span class="position">University of Central Punjab Lahore </span>
-				<p class="mt-4">Grade: First class distinction.</p>
-			</div>
-		</div>
-
-		<div class="col-md-6">
-			<div class="resume-wrap ftco-animate">
-				<span class="date">2017-2019</span>
-				<h2>Higher Secondary School</h2>
-				<span class="position">Higher Secondary School</span>
-				<p class="mt-4">Grade: First class distinction.</p>
-			</div>
-		</div>
-	</div>
-	<!-- 
-    		<div class="row justify-content-center mt-5">
-    			<div class="col-md-6 text-center ftco-animate">
-    				<p><a href="#" class="btn btn-primary py-4 px-5">Download CV</a></p>
-    			</div>
-    		</div>
-    	</div> -->
-	</section>
-
-
-	<section class="ftco-section" id="project-section">
-		<div class="container">
-			<div class="row justify-content-center mb-5 pb-5">
-				<div class="col-md-7 heading-section text-center ftco-animate">
-					<h1 class="big big-2">Projects</h1>
-					<h2 class="mb-4">My Flutter Projects</h2>
-					<p>Here are some of my Flutter projects, displayed with screenshots and descriptions.</p>
-				</div>
-			</div>
-
-			<!-- Projects displayed as images with descriptions -->
-			<div class="row d-flex">
-
-				<div class="col-md-4 d-flex ftco-animate">
-					<div class="blog-entry justify-content-end project-card animated fadeInUp">
-						<div class="block-20 zoom-effect"
-							style="background-image: url('images/Yellow\ Creative\ Free\ Food\ Delivery\ Video\ .png');">
-						</div>
-						<div class="text mt-3 float-right d-block">
-							<h3 class="heading">Food App</h3>
-							<p>Overview:Order delicious food from the comfort of your home with our convenient food app.
-								Browse a wide selection of cuisines, place orders seamlessly, and pay effortlessly with
-								your card. Enjoy quick delivery and satisfy your cravings without leaving your doorstep.
-							</p>
-						</div>
-					</div>
-				</div>
-
-				<!-- Project 2: HimaTABLE -->
-				<div class="col-md-4 d-flex ftco-animate">
-					<div class="blog-entry justify-content-end project-card animated fadeInUp">
-						<div class="block-20 zoom-effect" style="background-image: url('images/himatable.png');"></div>
-						<div class="text mt-3 float-right d-block">
-							<h3 class="heading">HimaTable</h3>
-							<p>Overview: HimaTable is a smart productivity app designed for effortless table creation, team collaboration, and seamless data management. Whether you're organizing tasks, planning projects, or managing content, users can easily create tables manually or generate them instantly using AI.
-
-								The app features a library of sample tables across multiple categories to help users get started quickly. With support for English and Arabic, along with a sleek light and dark mode, HimaTable delivers a highly personalized and inclusive user experience.
-								
-								Users can edit tables dynamically by adding rows, columns, and custom notes. Collaboration is at the heart of HimaTable — share tables with your team, assign roles like Owner, Editor, Collaborator, Viewer, or Contributor, and manage permissions with full control.
-								
-								Whether you're working solo or managing a team, HimaTable simplifies data organization and enhances productivity — all in one intuitive and powerful app.</p>
-						</div>
-					</div>
-				</div>
-				<!-- Project 2: HimaTABLE -->
-				<div class="col-md-4 d-flex ftco-animate">
-					<div class="blog-entry justify-content-end project-card animated fadeInUp">
-						<div class="block-20 zoom-effect" style="background-image: url('images/rentnova.png');"></div>
-						<div class="text mt-3 float-right d-block">
-							<h3 class="heading">RentNova</h3>
-							<p>Overview: RentNova is a next-gen property rental and buying platform designed for both tenants and landlords. With a single account, users can seamlessly switch profiles to explore properties as a tenant or manage listings as a landlord. Whether you're looking to rent or buy apartments, houses, or commercial spaces, RentNova makes it fast, easy, and secure.
-
-								Landlords can upload property listings with photos, pricing, and details, while the admin panel ensures quality control by reviewing each submission — offering approval, decline, or feedback based on the listing’s accuracy and completeness.
-								
-								Packed with powerful features, RentNova offers:
-								
-								Smooth profile switching between tenant and landlord
-								
-								Real-time property tracking and booking
-								
-								Detailed property management tools
-								
-								Admin-backed verification for trust and safety
-								
-								Intuitive design for effortless browsing and management
-								
-								Whether you're finding your next home or showcasing a space for rent or sale, RentNova empowers you with a complete, user-friendly solution for modern real estate needs — all in one smart app.</p>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 d-flex ftco-animate">
-					<div class="blog-entry justify-content-end project-card animated fadeInUp">
-						<div class="block-20 zoom-effect" style="background-image: url('images/moda\ heaven.png');"></div>
-						<div class="text mt-3 float-right d-block">
-							<h3 class="heading">Moda Heaven</h3>
-							<p>Overview:Moda Heaven is a cutting-edge fashion marketplace designed to elevate the shopping and selling experience for both buyers and sellers. With a powerful admin-verified seller system, Moda Heaven ensures only trusted vendors can list their products — maintaining quality, trust, and authenticity at every step.
-
-Sellers approved by the admin can showcase their collections using short reels, list or update products with real-time changes, and enhance product appeal through a stunning 3D view feature. Moda Heaven caters to a global audience with full support for both Arabic and English, ensuring accessibility and inclusivity for all users.
-
-Loaded with modern e-commerce essentials, Moda Heaven offers:
-
-Admin-approved seller registration for security and quality
-
-Product reels to visually promote fashion items
-
-3D product view for immersive shopping experiences
-
-Dual language support (Arabic & English)
-
-Dark and light mode themes for user preference
-
-Favorites and cart system for seamless shopping
-
-Stripe-integrated payments for secure checkouts
-
-Order tracking so users stay informed every step of the way
-
-Whether you're looking to buy the latest trends or sell your fashion collections, Moda Heaven brings everything together in one elegant, feature-rich app — redefining fashion e-commerce for the modern era.</p>
-						</div>
-					</div>
-				</div>
-
-
-				<!-- Project 2: Glassify -->
-				<div class="col-md-4 d-flex ftco-animate">
-					<div class="blog-entry justify-content-end project-card animated fadeInUp">
-						<div class="block-20 zoom-effect" style="background-image: url('images/glasses.png');"></div>
-						<div class="text mt-3 float-right d-block">
-							<h3 class="heading">Glassify</h3>
-							<p>Overview: A modern e-commerce app specializing in high-quality eyewear, including
-								prescription glasses, sunglasses, and fashion frames. Users can browse a wide range of
-								stylish glasses, place orders seamlessly, and track their purchases in real time with
-								detailed order status updates. The app provides a smooth shopping experience with secure
-								payment options, personalized recommendations, and an intuitive interface, ensuring
-								customers find the perfect pair with ease.</p>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 d-flex ftco-animate">
-					<div class="blog-entry justify-content-end project-card animated fadeInUp">
-						<div class="block-20 zoom-effect" style="background-image: url('images/FindYourPartner.png');">
-						</div>
-						<div class="text mt-3 float-right d-block">
-							<h3 class="heading">FindYourPartner</h3>
-							<p>Overview: FindYourPartner is the perfect dating app for effortless matchmaking. Our
-								personalized matching system connects you with like-minded individuals based on your
-								interests. With a user-friendly interface, browsing profiles and chatting is simple.
-								Enjoy secure messaging for privacy, and upgrade for premium features and an ad-free
-								experience. Customize your app with dark or light themes. Create a detailed profile to
-								attract matches who share your passions. Join FindYourPartner now to find your ideal
-								match with ease.</p>
-						</div>
-					</div>
-				</div>
-
-				
-				
-
-				<!-- Project 2: Petzap -->
-				<div class="col-md-4 d-flex ftco-animate">
-					<div class="blog-entry justify-content-end project-card animated fadeInUp">
-						<div class="block-20 zoom-effect" style="background-image: url('images/petPalace.png');"></div>
-						<div class="text mt-3 float-right d-block">
-							<h3 class="heading">PetPalace</h3>
-							<p>Overview: A social platform for pet lovers.PetPalace is a comprehensive pet care app that
-								offers a range of features, including pet crossbreeding for owners of the same breed,
-								GPS tracking for real-time pet location monitoring, a pet food recommendation system
-								based on breed, and a pet sitter service for temporary care. It also includes a vet
-								consultation feature where users can schedule appointments with veterinarians, who
-								receive notifications and can accept or decline meetings.</p>
-						</div>
-					</div>
-				</div>
-
-
-
-				<!-- Project 3: Digital Twin System -->
-				<div class="col-md-4 d-flex ftco-animate">
-					<div class="blog-entry justify-content-end project-card animated fadeInUp">
-						<div class="block-20 zoom-effect" style="background-image: url('images/pp.png');"></div>
-						<div class="text mt-3 float-right d-block">
-							<h3 class="heading">PropertyPall</h3>
-							<p>Overview:A real state app with full backend and features like favourite list, admin
-								panel, payment stripe and more...</p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="row d-flex">
-				<!-- Project 4: Food App -->
-
-
-				<!-- Project 5: Car Marketplace -->
-
-
-				<!-- Project 6: Scripture Reading App -->
-
-			</div>
-		</div>
-	</section>
-
-
-	<section class="ftco-section ftco-no-pt ftco-no-pb ftco-counter img" id="section-counter">
-		<div class="container">
-			<div class="row d-md-flex align-items-center">
-				<div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
-					<div class="block-18">
-						<div class="text">
-							<strong class="number" data-number="20">0</strong>
-							<span>Achievements</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
-					<div class="block-18">
-						<div class="text">
-							<strong class="number" data-number="30">0</strong>
-							<span>Projects</span>
-						</div>
-					</div>
-				</div>
-				<!-- <div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
-            <div class="block-18">
-              <div class="text">
-                <strong class="number" data-number="1000">0</strong>
-                <span>Mentored Students</span>
-              </div>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-logo">Fazil Qazi</div>
+        <div class="loading-subtitle">Flutter Developer & Mobile App Specialist</div>
+        <div class="loading-spinner"></div>
+        <div class="loading-progress">
+            <div class="loading-progress-bar"></div>
+        </div>
+    </div>
+
+    <!-- Galaxy Background -->
+    <div class="galaxy-background"></div>
+    
+    <!-- Galaxy Nodes -->
+    <div class="galaxy-nodes" id="galaxyNodes"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">Fazil Qazi</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
             </div>
-          </div> -->
-				<div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
-					<div class="block-18">
-						<div class="text">
-							<strong class="number" data-number="500">0</strong>
-							<span>Cups of coffee</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+        </div>
+    </nav>
 
-		<!-- <div class="ftco-section ftco-hireme img margin-top" style="background-image: url(images/bg_1.jpg)"> -->
-		<div class="container">
-			<!-- <div class="row justify-content-center">
-					<div class="col-md-7 ftco-animate text-center">
-						<h2>More projects on<span> Github  </span> </h2>
-						<div class="heading"> <h4> I love to solve business problems &amp; uncover hidden data stories </h4>
-						<br>
-						<p><a href="https://github.com/rishabhnmishra" class="btn btn-primary py-3 px-5">GitHub</a></p>
-						</div>
-					</div>
-				</div> -->
-		</div>
-		</div>
-	</section>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1>Fazil Qazi</h1>
+                    <p>Senior Flutter Developer with 3+ years of experience</p>
+                    <a href="#projects" class="btn-primary">View My Work</a>
+                    <a href="#contact" class="btn-primary ms-3">Get In Touch</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- About Section -->
+    <section id="about" class="section section-dark">
+        <div class="container">
+            <h2 class="section-title scroll-animate">About Me</h2>
+            <div class="row">
+                <div class="col-lg-4">
+                    <img src="images/fazil.png" alt="Fazil Qazi" class="about-img scroll-animate-left">
+                </div>
+                <div class="col-lg-8 scroll-animate-right">
+                    <h3>Flutter Developer & Mobile App Specialist</h3>
+                    <p>I'm a passionate Flutter developer with expertise in creating cross-platform mobile applications. I specialize in building scalable, user-friendly apps with modern UI/UX design principles.</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <p><strong>Name:</strong> Fazil Qazi</p>
+                            <p><strong>Experience:</strong> 3+ Years</p>
+                            <p><strong>Location:</strong> Lahore, Pakistan</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Email:</strong> qazifazil4@gmail.com</p>
+                            <p><strong>Phone:</strong> +923160631814</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Skills -->
+                    <h4 class="mt-4 mb-3 scroll-animate">Skills</h4>
+                    <div class="skill-item scroll-animate">
+                        <div class="skill-name">
+                            <span>Flutter</span>
+                            <span class="skill-percentage">95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item scroll-animate">
+                        <div class="skill-name">
+                            <span>Dart</span>
+                            <span class="skill-percentage">90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item scroll-animate">
+                        <div class="skill-name">
+                            <span>API Integration</span>
+                            <span class="skill-percentage">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item scroll-animate">
+                        <div class="skill-name">
+                            <span>Firebase</span>
+                            <span class="skill-percentage">80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title scroll-animate">My Projects</h2>
+            <div class="row">
+                
+                <!-- Project 1 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card scroll-animate-scale">
+                        <div class="project-img" style="background-image: url('images/Yellow Creative Free Food Delivery Video .png')"></div>
+                        <h3 class="project-title">FoodieExpress</h3>
+                        <p>Order delicious food from the comfort of your home with our convenient food delivery app.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">Firebase</span>
+                            <span class="tech-tag">Payment Gateway</span>
+                        </div>
+                        <button class="view-details-btn" onclick="openModal('foodieExpress')">View Details</button>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card scroll-animate-scale">
+                        <div class="project-img" style="background-image: url('images/himatable.png')"></div>
+                        <h3 class="project-title">HimaTable Pro</h3>
+                        <p>Smart productivity app for effortless table creation and team collaboration with AI-powered features.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">AI Integration</span>
+                            <span class="tech-tag">Real-time Sync</span>
+                        </div>
+                        <button class="view-details-btn" onclick="openModal('himaTable')">View Details</button>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card scroll-animate-scale">
+                        <div class="project-img" style="background-image: url('images/eventmaker.png')"></div>
+                        <h3 class="project-title">EventMaker</h3>
+                        <p>Smart event networking app that creates real-world meetups based on personality, hobbies, and interests matching.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">AI Matching</span>
+                            <span class="tech-tag">Event Management</span>
+                        </div>
+                        <button class="view-details-btn" onclick="openModal('eventMaker')">View Details</button>
+                    </div>
+                </div>
+                
+                <!-- Project 4 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card scroll-animate-scale">
+                        <div class="project-img" style="background-image: url('images/clothing app.png')"></div>
+                        <h3 class="project-title">Fashion Reels</h3>
+                        <p>Interactive fashion marketplace featuring TikTok-style clothing reels, 3D visualization, and secure payment integration.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">Video Reels</span>
+                            <span class="tech-tag">3D Effects</span>
+                        </div>
+                        <button class="view-details-btn" onclick="openModal('fashionReels')">View Details</button>
+                    </div>
+                </div>
+                
+                <!-- Project 5 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card scroll-animate-scale">
+                        <div class="project-img" style="background-image: url('images/rentnova.png')"></div>
+                        <h3 class="project-title">RentNova</h3>
+                        <p>Next-generation property rental platform with dual-profile system and admin verification.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">Profile Switching</span>
+                            <span class="tech-tag">Real-time Chat</span>
+                        </div>
+                        <button class="view-details-btn" onclick="openModal('rentNova')">View Details</button>
+                    </div>
+                </div>
+                
+                <!-- Project 6 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card scroll-animate-scale">
+                        <div class="project-img" style="background-image: url('images/moda heaven.png')"></div>
+                        <h3 class="project-title">Moda Heaven</h3>
+                        <p>Premium fashion marketplace with 3D product visualization and video reels.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">3D Modeling</span>
+                            <span class="tech-tag">AR Integration</span>
+                        </div>
+                        <button class="view-details-btn" onclick="openModal('modaHeaven')">View Details</button>
+                    </div>
+                </div>
+                
+                <!-- Project 7 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card scroll-animate-scale">
+                        <div class="project-img" style="background-image: url('images/glasses.png')"></div>
+                        <h3 class="project-title">VisionCraft</h3>
+                        <p>Advanced eyewear e-commerce platform with virtual try-on technology.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">AR Try-On</span>
+                            <span class="tech-tag">E-commerce</span>
+                        </div>
+                        <button class="view-details-btn" onclick="openModal('visionCraft')">View Details</button>
+                    </div>
+                </div>
+                
+                <!-- Project 8 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card scroll-animate-scale">
+                        <div class="project-img" style="background-image: url('images/FindYourPartner.png')"></div>
+                        <h3 class="project-title">SoulMatch</h3>
+                        <p>Intelligent dating platform with personality-based matching algorithms.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">AI Matching</span>
+                            <span class="tech-tag">Real-time Chat</span>
+                        </div>
+                        <button class="view-details-btn" onclick="openModal('soulMatch')">View Details</button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
 
-	<section class="ftco-section contact-section ftco-no-pb" id="contact-section">
-		<!-- <div class="ftco-section ftco-hireme img margin-top" style="background-image: url(images/bg_1.jpg)"> -->
-		<div class="container">
-			<div class="row justify-content-center mb-5 pb-3">
-				<div class="col-md-7 heading-section text-center ftco-animate">
-					<h1 class="big big-2">Contact</h1>
-					<h2 class="mb-4">Contact Me</h2>
-					<p>Below are the details to reach out to me!</p>
-				</div>
-			</div>
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="section section-dark">
+        <div class="container">
+            <h2 class="section-title scroll-animate">What Clients Say</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="testimonial-card scroll-animate-left">
+                        <i class="fas fa-quote-right quote-icon"></i>
+                        <p class="testimonial-text">"Fazil delivered an exceptional Flutter app that exceeded our expectations. His attention to detail and technical expertise made our project a huge success."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">JD</div>
+                            <div class="author-info">
+                                <h5>Hima Egypt</h5>
+                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="testimonial-card scroll-animate">
+                        <i class="fas fa-quote-right quote-icon"></i>
+                        <p class="testimonial-text">"Working with Fazil was a pleasure. He understood our vision perfectly and created a beautiful, functional app with amazing UI/UX design."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">SM</div>
+                            <div class="author-info">
+                                <h5>Sarah Miller</h5>
+                                <p>Product Manager</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="testimonial-card scroll-animate-right">
+                        <i class="fas fa-quote-right quote-icon"></i>
+                        <p class="testimonial-text">"Fazil's expertise in Flutter development is remarkable. He delivered our project on time with excellent performance and clean code architecture."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">AR</div>
+                            <div class="author-info">
+                                <h5>Ahmed Rahman</h5>
+                                <p> Digital Ventures</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-			<div class="row d-flex contact-info mb-5">
-				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
-					<div class="align-self-stretch box p-4 text-center">
-						<div class="icon d-flex align-items-center justify-content-center">
-							<span class="icon-map-signs"></span>
-						</div>
-						<h3 class="mb-4">Address</h3>
-						<p>Lahore,Pakistan</p>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
-					<div class="align-self-stretch box p-4 text-center">
-						<div class="icon d-flex align-items-center justify-content-center">
-							<span class="icon-phone2"></span>
-						</div>
-						<h3 class="mb-4">Contact Number</h3>
-						<p><a href="tel://0101010101">+923160631814</a></p>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
-					<div class="align-self-stretch box p-4 text-center">
-						<div class="icon d-flex align-items-center justify-content-center">
-							<span class="icon-paper-plane"></span>
-						</div>
-						<h3 class="mb-4">Email Address</h3>
-						<p><a href="mailto:info@yoursite.com">qazifazil4@gmail.com</a></p>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
-					<div class="align-self-stretch box p-4 text-center">
-						<div class="icon d-flex align-items-center justify-content-center">
-							<span class="icon-globe"></span>
-						</div>
-						<h3 class="mb-4">Availability</h3>
-						<p>Open to freelance projects and full-time opportunities</p>
-					</div>
-				</div>
+    <!-- Contact Section -->
+    <section id="contact" class="section section-dark">
+        <div class="container">
+            <h2 class="section-title scroll-animate">Get In Touch</h2>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="contact-item scroll-animate-left">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h4>Address</h4>
+                        <p>Lahore, Pakistan</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="contact-item scroll-animate">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h4>Phone</h4>
+                        <p>+923160631814</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="contact-item scroll-animate-right">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h4>Email</h4>
+                        <p>qazifazil4@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Form -->
+            <div class="row mt-5">
+                <div class="col-lg-8 mx-auto">
+                    <div class="contact-form scroll-animate">
+                        <h3 class="text-center mb-4" style="color: #ffbd39;">Send Me a Message</h3>
+                        <form id="contactForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="name">Your Name</label>
+                                        <input type="text" id="name" name="name" class="form-control" placeholder="Enter your name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="email">Your Email</label>
+                                        <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <input type="text" id="subject" name="subject" class="form-control" placeholder="Project inquiry" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" class="form-control" placeholder="Tell me about your project..." required></textarea>
+                            </div>
+                            <button type="submit" class="submit-btn">
+                                <i class="fas fa-paper-plane"></i> Send Message
+                            </button>
+                            <div id="formMessage" class="form-message"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                <a href="https://www.linkedin.com/in/fazil-qazi-93050a240/" target="_blank" class="btn-primary me-3">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+                <a href="cv/Fazil_Qazi_CV.pdf" target="_blank" class="btn-primary">
+                    <i class="fas fa-download"></i> Download CV
+                </a>
+            </div>
+        </div>
+    </section>
 
-				<div class="container">
-					<br>
-					<br>
-					<div class="row justify-content-center">
-						<div class="col-md-7 ftco-animate text-center">
-							<h2>Have a<span> Question? </span> </h2>
-						</div>
-					</div>
-					<br>
-					<ul class="ftco-footer-social list-unstyled d-flex justify-content-center align-items-center mb-0">
-						<li class="ftco-animate normal-txt">Find me on </li>
-						<!-- <li class="ftco-animate"><a href="https://www.youtube.com/@RishabhMishraOfficial"><span class="icon-youtube"></span></a></li> -->
-						<li class="ftco-animate"><a href="https://www.linkedin.com/in/fazil-qazi-93050a240/"><span
-									class="icon-linkedin"></span></a></li>
-						<!-- <li class="ftco-animate"><a href="https://twitter.com/rishab"><span class="icon-twitter"></span></a></li> -->
-						<li class="ftco-animate"><a
-								href="https://www.facebook.com/share/1YitQnz9UF/?mibextid=LQQJ4d"><span
-									class="icon-facebook"></span></a></li>
-						<li class="ftco-animate"><a
-								href="https://www.instagram.com/fazil._.qazi?igsh=bHNsbmdqdXdzcHp1&utm_source=qr"><span
-									class="icon-instagram"></span></a></li>
-					</ul>
-					<br>
-				</div>
-			</div>
-	</section>
+    <!-- Project Modal -->
+    <div id="projectModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <h2 id="modalTitle" class="modal-title">Project Title</h2>
+            <p id="modalDescription" class="modal-description">Project description will appear here...</p>
+            <div class="modal-features">
+                <h4>Key Features</h4>
+                <ul id="modalFeatures">
+                    <!-- Features will be populated by JavaScript -->
+                </ul>
+            </div>
+            <div class="modal-features">
+                <h4>Technologies Used</h4>
+                <div id="modalTechStack">
+                    <!-- Tech stack will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
+    <script>
+        // Project data
+        const projectData = {
+            foodieExpress: {
+                title: "FoodieExpress - Food Delivery App",
+                description: "A comprehensive food delivery application that connects customers with restaurants in their area. The app features a user-friendly interface for browsing menus, placing orders, real-time tracking, and secure payment processing. Built with Flutter for cross-platform compatibility and Firebase for backend services.",
+                features: [
+                    "Browse restaurants and menus by category and location",
+                    "Real-time order tracking with GPS integration",
+                    "Multiple payment options including cards and digital wallets",
+                    "User reviews and ratings system",
+                    "Push notifications for order updates",
+                    "Admin dashboard for restaurant management",
+                    "Multi-language support for diverse user base"
+                ],
+                techStack: ["Flutter", "Dart", "Firebase", "Google Maps API", "Payment Gateway Integration", "Push Notifications"]
+            },
+            himaTable: {
+                title: "HimaTable Pro - Smart Productivity App",
+                description: "An innovative productivity application that revolutionizes table creation and team collaboration. Using AI-powered features, users can generate dynamic tables, manage data efficiently, and collaborate in real-time with team members across different time zones.",
+                features: [
+                    "AI-powered table generation from text descriptions",
+                    "Real-time collaborative editing and commenting",
+                    "Multi-language support for international teams",
+                    "Advanced data visualization and export options",
+                    "Role-based permissions and access control",
+                    "Cloud sync across all devices",
+                    "Integration with popular productivity tools"
+                ],
+                techStack: ["Flutter", "AI/ML Integration", "Cloud Firestore", "Real-time Database", "Multi-language Support", "Data Visualization"]
+            },
+            eventMaker: {
+                title: "EventMaker - Smart Event Networking App",
+                description: "A revolutionary event networking platform that brings people together in real life based on shared interests, hobbies, and personality compatibility. Admin and app staff create curated events where users meet their perfect matches for meaningful connections and shared experiences.",
+                features: [
+                    "AI-powered personality and interest matching algorithms",
+                    "Real-world event creation and management by admin staff",
+                    "Comprehensive user profiling with hobbies and interests",
+                    "Event discovery based on location and preferences",
+                    "In-app messaging before and after events",
+                    "Event check-in and attendance tracking",
+                    "Post-event feedback and connection management",
+                    "Safety features and user verification system"
+                ],
+                techStack: ["Flutter", "AI Matching Algorithms", "Event Management", "Real-time Chat", "Location Services", "User Analytics", "Admin Dashboard"]
+            },
+            fashionReels: {
+                title: "Fashion Reels - Interactive Clothing Marketplace",
+                description: "A cutting-edge fashion marketplace that revolutionizes online clothing shopping through TikTok-style video reels created by admins. Features immersive 3D clothing visualization, interactive user engagement, and seamless secure payment integration for a complete fashion experience.",
+                features: [
+                    "TikTok-style clothing reels created by admin for maximum engagement",
+                    "3D clothing visualization with realistic fabric textures",
+                    "Interactive user engagement with likes, comments, and shares",
+                    "Advanced clothing filters and search by style, color, and size",
+                    "Virtual try-on experience with AR integration",
+                    "Secure payment gateway with multiple payment options",
+                    "Admin dashboard for content creation and user management",
+                    "Real-time analytics for user behavior and sales tracking"
+                ],
+                techStack: ["Flutter", "Video Streaming", "3D Modeling", "AR Integration", "Payment Gateway", "Admin CMS", "Real-time Analytics", "Social Features"]
+            },
+            rentNova: {
+                title: "RentNova - Property Rental Platform",
+                description: "A next-generation property rental platform featuring a unique dual-profile system that allows users to seamlessly switch between tenant and landlord modes. The app includes admin verification, real-time chat, and comprehensive property management tools.",
+                features: [
+                    "Dual-profile system for tenants and landlords",
+                    "Advanced property search with filters and map view",
+                    "Real-time messaging system between users",
+                    "Document upload and verification system",
+                    "Admin panel for user and property verification",
+                    "Booking calendar with availability management",
+                    "Payment integration for rent and deposits"
+                ],
+                techStack: ["Flutter", "Profile Management", "Admin Panel", "Real-time Chat", "Google Maps", "Document Management", "Payment Processing"]
+            },
+            modaHeaven: {
+                title: "Moda Heaven - Fashion Marketplace",
+                description: "A premium fashion marketplace that combines traditional e-commerce with cutting-edge technology. Features 3D product visualization, TikTok-style fashion reels, and admin-verified sellers to ensure authentic products and immersive shopping experiences.",
+                features: [
+                    "3D product visualization and virtual try-on",
+                    "Fashion reels with TikTok-style video content",
+                    "Admin verification system for sellers",
+                    "Multi-language support for global reach",
+                    "Advanced search and recommendation engine",
+                    "Social features for sharing and following",
+                    "Secure payment and shipping integration"
+                ],
+                techStack: ["Flutter", "3D Modeling", "AR Integration", "Video Streaming", "Admin Verification", "Social Features", "E-commerce Backend"]
+            },
+            visionCraft: {
+                title: "VisionCraft - Eyewear E-commerce Platform",
+                description: "An advanced eyewear e-commerce platform featuring revolutionary virtual try-on technology. Users can preview glasses in real-time using AR, customize prescriptions, and enjoy a seamless shopping experience with detailed product information and professional guidance.",
+                features: [
+                    "Virtual try-on using AR technology",
+                    "Prescription customization and validation",
+                    "Detailed product specifications and materials",
+                    "Professional consultation booking system",
+                    "Virtual fitting assistance and recommendations",
+                    "Secure payment processing and insurance integration",
+                    "Order tracking and customer support"
+                ],
+                techStack: ["Flutter", "AR Technology", "Camera Integration", "E-commerce Platform", "Payment Gateway", "Customer Support System"]
+            },
+            soulMatch: {
+                title: "SoulMatch - Intelligent Dating Platform",
+                description: "An intelligent dating platform that goes beyond simple swiping by using advanced personality-based matching algorithms. The app focuses on creating meaningful connections through compatibility analysis, secure messaging, and premium features designed for serious relationships.",
+                features: [
+                    "AI-powered personality matching algorithms",
+                    "Detailed compatibility analysis and reports",
+                    "Secure end-to-end encrypted messaging",
+                    "Premium subscription with advanced features",
+                    "Video call integration for virtual dates",
+                    "Safety features and user verification",
+                    "Relationship coaching and tips"
+                ],
+                techStack: ["Flutter", "AI Matching Algorithms", "Real-time Chat", "Video Calling", "Premium Subscriptions", "Security Features", "Analytics"]
+            }
+        };
 
+        // Modal functions
+        function openModal(projectId) {
+            const project = projectData[projectId];
+            if (!project) return;
 
+            // Populate modal content
+            document.getElementById('modalTitle').textContent = project.title;
+            document.getElementById('modalDescription').textContent = project.description;
 
-	<footer class="ftco-footer ftco-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12 text-center">
+            // Populate features
+            const featuresList = document.getElementById('modalFeatures');
+            featuresList.innerHTML = '';
+            project.features.forEach(feature => {
+                const li = document.createElement('li');
+                li.textContent = feature;
+                featuresList.appendChild(li);
+            });
 
-					<!-- <p>Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-					<!-- Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> -->
-					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-				</div>
-			</div>
-		</div>
-	</footer>
+            // Populate tech stack
+            const techStackContainer = document.getElementById('modalTechStack');
+            techStackContainer.innerHTML = '';
+            project.techStack.forEach(tech => {
+                const span = document.createElement('span');
+                span.className = 'tech-tag';
+                span.textContent = tech;
+                span.style.marginRight = '8px';
+                span.style.marginBottom = '8px';
+                techStackContainer.appendChild(span);
+            });
 
+            // Show modal
+            const modal = document.getElementById('projectModal');
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
 
-	<!-- loader -->
-	<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
-			<circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
-			<circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
-				stroke="#F96D00" />
-		</svg></div>
+            // Add click outside to close
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
 
+            // Add escape key to close
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeModal();
+                }
+            });
+        }
 
-	<script src="js/jquery.min.js"></script>
-	<script src="js/jquery-migrate-3.0.1.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.easing.1.3.js"></script>
-	<script src="js/jquery.waypoints.min.js"></script>
-	<script src="js/jquery.stellar.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/aos.js"></script>
-	<script src="js/jquery.animateNumber.min.js"></script>
-	<script src="js/scrollax.min.js"></script>
+        function closeModal() {
+            const modal = document.getElementById('projectModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
 
-	<script src="js/main.js"></script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
 
+        // Galaxy Nodes Creation
+        function createGalaxyNodes() {
+            const galaxyContainer = document.getElementById('galaxyNodes');
+            const nodeCount = 50;
+            const lineCount = 20;
+
+            // Create nodes
+            for (let i = 0; i < nodeCount; i++) {
+                const node = document.createElement('div');
+                node.className = `node ${['node-small', 'node-medium', 'node-large'][Math.floor(Math.random() * 3)]}`;
+                
+                // Random position
+                node.style.left = Math.random() * 100 + '%';
+                node.style.top = Math.random() * 100 + '%';
+                
+                // Random animation delay
+                node.style.animationDelay = Math.random() * 15 + 's';
+                
+                // Random colors for some nodes
+                if (Math.random() > 0.7) {
+                    node.style.background = `radial-gradient(circle, rgba(255, 189, 57, 0.8) 0%, rgba(255, 189, 57, 0.1) 70%, transparent 100%)`;
+                } else if (Math.random() > 0.8) {
+                    node.style.background = `radial-gradient(circle, rgba(255, 107, 57, 0.8) 0%, rgba(255, 107, 57, 0.1) 70%, transparent 100%)`;
+                }
+                
+                galaxyContainer.appendChild(node);
+            }
+
+            // Create connection lines
+            for (let i = 0; i < lineCount; i++) {
+                const line = document.createElement('div');
+                line.className = 'connection-line';
+                
+                // Random position and rotation
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const length = Math.random() * 200 + 50;
+                const rotation = Math.random() * 360;
+                
+                line.style.left = x + '%';
+                line.style.top = y + '%';
+                line.style.width = length + 'px';
+                line.style.transform = `rotate(${rotation}deg)`;
+                line.style.animationDelay = Math.random() * 8 + 's';
+                
+                galaxyContainer.appendChild(line);
+            }
+        }
+
+        // Scroll Animation Observer
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all elements with scroll animation classes
+            document.querySelectorAll('.scroll-animate, .scroll-animate-left, .scroll-animate-right, .scroll-animate-scale').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // EmailJS Configuration
+        const EMAILJS_CONFIG = {
+            serviceID: 'service_bmcd6un',      // Your EmailJS service ID
+            templateID: 'template_vv4psts',    // Your EmailJS template ID
+            publicKey: 'wD0lPu7_zvYRn9l15'     // Your EmailJS public key
+        };
+
+        // Contact Form Handler with EmailJS
+        function initContactForm() {
+            console.log('Initializing EmailJS with config:', EMAILJS_CONFIG);
+            
+            // Initialize EmailJS
+            emailjs.init(EMAILJS_CONFIG.publicKey);
+            
+            const form = document.getElementById('contactForm');
+            const messageDiv = document.getElementById('formMessage');
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const submitBtn = form.querySelector('.submit-btn');
+                
+                // Disable submit button and show loading
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                
+                // Prepare email parameters - try multiple parameter formats
+                const emailParams = {
+                    // Standard format
+                    from_name: document.getElementById('name').value,
+                    from_email: document.getElementById('email').value,
+                    subject: document.getElementById('subject').value,
+                    message: document.getElementById('message').value,
+                    // Alternative format
+                    user_name: document.getElementById('name').value,
+                    user_email: document.getElementById('email').value,
+                    user_subject: document.getElementById('subject').value,
+                    user_message: document.getElementById('message').value,
+                    // Another format
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    reply_to: document.getElementById('email').value
+                };
+                
+                console.log('Sending email with params:', emailParams);
+                
+                // Send email using EmailJS
+                emailjs.send(
+                    EMAILJS_CONFIG.serviceID,
+                    EMAILJS_CONFIG.templateID,
+                    emailParams
+                ).then(function(response) {
+                    console.log('EmailJS Success:', response);
+                    // Success
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+                    
+                    messageDiv.className = 'form-message success';
+                    messageDiv.style.display = 'block';
+                    messageDiv.textContent = 'Thank you! Your message has been sent successfully to qazifazil4@gmail.com. I\'ll get back to you soon!';
+                    
+                    // Reset form
+                    form.reset();
+                    
+                    // Hide message after 5 seconds
+                    setTimeout(() => {
+                        messageDiv.style.display = 'none';
+                    }, 5000);
+                    
+                }, function(error) {
+                    console.error('EmailJS Error Details:', error);
+                    console.error('Error status:', error.status);
+                    console.error('Error text:', error.text);
+                    
+                    // Error
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+                    
+                    messageDiv.className = 'form-message error';
+                    messageDiv.style.display = 'block';
+                    
+                    // More detailed error message
+                    let errorMessage = 'Failed to send message. ';
+                    if (error.status === 422) {
+                        errorMessage += 'Please check your EmailJS template configuration. ';
+                    } else if (error.status === 403) {
+                        errorMessage += 'EmailJS service access denied. Check your credentials. ';
+                    } else if (error.status === 400) {
+                        errorMessage += 'Invalid request parameters. ';
+                    }
+                    errorMessage += 'Please contact me directly at qazifazil4@gmail.com';
+                    
+                    messageDiv.textContent = errorMessage;
+                    
+                    // Hide message after 8 seconds for longer error
+                    setTimeout(() => {
+                        messageDiv.style.display = 'none';
+                    }, 8000);
+                });
+            });
+        }
+
+        // Loading Screen Handler
+        function initLoadingScreen() {
+            const loadingScreen = document.getElementById('loadingScreen');
+            
+            // Hide loading screen after content loads
+            window.addEventListener('load', function() {
+                setTimeout(() => {
+                    loadingScreen.classList.add('fade-out');
+                    
+                    // Remove loading screen from DOM after animation
+                    setTimeout(() => {
+                        loadingScreen.remove();
+                    }, 800);
+                }, 1000); // Show loading for at least 1 second
+            });
+        }
+
+        // Initialize galaxy on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initLoadingScreen();
+            createGalaxyNodes();
+            initScrollAnimations();
+            initContactForm();
+            
+            // Add some dynamic movement to nodes
+            setInterval(() => {
+                const nodes = document.querySelectorAll('.node');
+                nodes.forEach(node => {
+                    if (Math.random() > 0.95) {
+                        node.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                    }
+                });
+            }, 5000);
+        });
+    </script>
 </body>
-
 </html>
