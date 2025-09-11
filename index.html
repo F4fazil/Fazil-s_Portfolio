@@ -586,108 +586,6 @@
             font-size: 2rem;
             color: rgba(255, 189, 57, 0.2);
         }
-
-        /* Contact Form */
-        .contact-form {
-            background: #1a1a1a;
-            border-radius: 15px;
-            padding: 30px;
-            border: 1px solid #333;
-            margin-top: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            color: #ffbd39;
-            font-weight: 500;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .form-control {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 12px 15px;
-            color: #fff !important;
-            width: 100%;
-            transition: all 0.3s ease;
-        }
-
-        .form-control:focus {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: #ffbd39;
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(255, 189, 57, 0.2);
-            color: #fff !important;
-        }
-
-        .form-control::placeholder {
-            color: rgba(255, 255, 255, 0.5) !important;
-        }
-
-        .form-control::-webkit-input-placeholder {
-            color: rgba(255, 255, 255, 0.5) !important;
-        }
-
-        .form-control::-moz-placeholder {
-            color: rgba(255, 255, 255, 0.5) !important;
-        }
-
-        .form-control:-ms-input-placeholder {
-            color: rgba(255, 255, 255, 0.5) !important;
-        }
-
-        textarea.form-control {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .submit-btn {
-            background: linear-gradient(45deg, #ffbd39, #ff6b39);
-            border: none;
-            color: white;
-            padding: 12px 30px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 189, 57, 0.4);
-        }
-
-        .submit-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .form-message {
-            padding: 10px 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-            text-align: center;
-            display: none;
-        }
-
-        .form-message.success {
-            background: rgba(34, 197, 94, 0.1);
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            color: #22c55e;
-        }
-
-        .form-message.error {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            color: #ef4444;
-        }
         
         /* Projects */
         .project-card {
@@ -730,28 +628,6 @@
             margin-right: 8px;
             margin-bottom: 8px;
             display: inline-block;
-        }
-        
-        /* Contact */
-        .contact-item {
-            text-align: center;
-            padding: 30px 20px;
-            background: #1a1a1a;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            border: 1px solid #333;
-            transition: transform 0.3s ease;
-        }
-        
-        .contact-item:hover {
-            transform: translateY(-5px);
-            border-color: #ffbd39;
-        }
-        
-        .contact-icon {
-            font-size: 2rem;
-            color: #ffbd39;
-            margin-bottom: 15px;
         }
         
         /* Project Modal */
@@ -909,9 +785,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#projects">Projects</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -925,7 +798,6 @@
                     <h1>Fazil Qazi</h1>
                     <p>Senior Flutter Developer with 3+ years of experience</p>
                     <a href="#projects" class="btn-primary">View My Work</a>
-                    <a href="#contact" class="btn-primary ms-3">Get In Touch</a>
                 </div>
             </div>
         </div>
@@ -1176,88 +1048,6 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="section section-dark">
-        <div class="container">
-            <h2 class="section-title scroll-animate">Get In Touch</h2>
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="contact-item scroll-animate-left">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <h4>Address</h4>
-                        <p>Lahore, Pakistan</p>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="contact-item scroll-animate">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <h4>Phone</h4>
-                        <p>+923160631814</p>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="contact-item scroll-animate-right">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <h4>Email</h4>
-                        <p>qazifazil4@gmail.com</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Contact Form -->
-            <div class="row mt-5">
-                <div class="col-lg-8 mx-auto">
-                    <div class="contact-form scroll-animate">
-                        <h3 class="text-center mb-4" style="color: #ffbd39;">Send Me a Message</h3>
-                        <form id="contactForm">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="name">Your Name</label>
-                                        <input type="text" id="name" name="name" class="form-control" placeholder="Enter your name" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="email">Your Email</label>
-                                        <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="subject">Subject</label>
-                                <input type="text" id="subject" name="subject" class="form-control" placeholder="Project inquiry" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="message">Message</label>
-                                <textarea id="message" name="message" class="form-control" placeholder="Tell me about your project..." required></textarea>
-                            </div>
-                            <button type="submit" class="submit-btn">
-                                <i class="fas fa-paper-plane"></i> Send Message
-                            </button>
-                            <div id="formMessage" class="form-message"></div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center mt-5">
-                <a href="https://www.linkedin.com/in/fazil-qazi-93050a240/" target="_blank" class="btn-primary me-3">
-                    <i class="fab fa-linkedin"></i> LinkedIn
-                </a>
-                <a href="cv/Fazil_Qazi_CV.pdf" target="_blank" class="btn-primary">
-                    <i class="fas fa-download"></i> Download CV
-                </a>
-            </div>
-        </div>
-    </section>
-
     <!-- Project Modal -->
     <div id="projectModal" class="modal-overlay">
         <div class="modal-content">
@@ -1281,8 +1071,6 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- EmailJS -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     
     <script>
         // Project data
@@ -1542,108 +1330,6 @@
             });
         }
 
-        // EmailJS Configuration
-        const EMAILJS_CONFIG = {
-            serviceID: 'service_bmcd6un',      // Your EmailJS service ID
-            templateID: 'template_vv4psts',    // Your EmailJS template ID
-            publicKey: 'wD0lPu7_zvYRn9l15'     // Your EmailJS public key
-        };
-
-        // Contact Form Handler with EmailJS
-        function initContactForm() {
-            console.log('Initializing EmailJS with config:', EMAILJS_CONFIG);
-            
-            // Initialize EmailJS
-            emailjs.init(EMAILJS_CONFIG.publicKey);
-            
-            const form = document.getElementById('contactForm');
-            const messageDiv = document.getElementById('formMessage');
-
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const submitBtn = form.querySelector('.submit-btn');
-                
-                // Disable submit button and show loading
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-                
-                // Prepare email parameters - try multiple parameter formats
-                const emailParams = {
-                    // Standard format
-                    from_name: document.getElementById('name').value,
-                    from_email: document.getElementById('email').value,
-                    subject: document.getElementById('subject').value,
-                    message: document.getElementById('message').value,
-                    // Alternative format
-                    user_name: document.getElementById('name').value,
-                    user_email: document.getElementById('email').value,
-                    user_subject: document.getElementById('subject').value,
-                    user_message: document.getElementById('message').value,
-                    // Another format
-                    name: document.getElementById('name').value,
-                    email: document.getElementById('email').value,
-                    reply_to: document.getElementById('email').value
-                };
-                
-                console.log('Sending email with params:', emailParams);
-                
-                // Send email using EmailJS
-                emailjs.send(
-                    EMAILJS_CONFIG.serviceID,
-                    EMAILJS_CONFIG.templateID,
-                    emailParams
-                ).then(function(response) {
-                    console.log('EmailJS Success:', response);
-                    // Success
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
-                    
-                    messageDiv.className = 'form-message success';
-                    messageDiv.style.display = 'block';
-                    messageDiv.textContent = 'Thank you! Your message has been sent successfully to qazifazil4@gmail.com. I\'ll get back to you soon!';
-                    
-                    // Reset form
-                    form.reset();
-                    
-                    // Hide message after 5 seconds
-                    setTimeout(() => {
-                        messageDiv.style.display = 'none';
-                    }, 5000);
-                    
-                }, function(error) {
-                    console.error('EmailJS Error Details:', error);
-                    console.error('Error status:', error.status);
-                    console.error('Error text:', error.text);
-                    
-                    // Error
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
-                    
-                    messageDiv.className = 'form-message error';
-                    messageDiv.style.display = 'block';
-                    
-                    // More detailed error message
-                    let errorMessage = 'Failed to send message. ';
-                    if (error.status === 422) {
-                        errorMessage += 'Please check your EmailJS template configuration. ';
-                    } else if (error.status === 403) {
-                        errorMessage += 'EmailJS service access denied. Check your credentials. ';
-                    } else if (error.status === 400) {
-                        errorMessage += 'Invalid request parameters. ';
-                    }
-                    errorMessage += 'Please contact me directly at qazifazil4@gmail.com';
-                    
-                    messageDiv.textContent = errorMessage;
-                    
-                    // Hide message after 8 seconds for longer error
-                    setTimeout(() => {
-                        messageDiv.style.display = 'none';
-                    }, 8000);
-                });
-            });
-        }
-
         // Loading Screen Handler
         function initLoadingScreen() {
             const loadingScreen = document.getElementById('loadingScreen');
@@ -1666,7 +1352,6 @@
             initLoadingScreen();
             createGalaxyNodes();
             initScrollAnimations();
-            initContactForm();
             
             // Add some dynamic movement to nodes
             setInterval(() => {
