@@ -5,7 +5,8 @@
       "Bash(npm install:*)",
       "Bash(python3:*)",
       "Bash(rm:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(xargs:*)"
     ],
     "deny": []
   }
