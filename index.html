@@ -220,11 +220,38 @@
         .theme-toggle i {
             font-size: 1.1rem;
         }
+        .theme-toggle .theme-label {
+            display: none;
+        }
         [data-theme="light"] .theme-toggle .fa-sun { display: none; }
         [data-theme="light"] .theme-toggle .fa-moon { display: inline-block; }
         [data-theme="dark"] .theme-toggle .fa-sun { display: inline-block; }
         [data-theme="dark"] .theme-toggle .fa-moon { display: none; }
         .theme-toggle .fa-moon { display: none; }
+
+        /* Mobile theme toggle - show as nav item with label */
+        @media (max-width: 991px) {
+            .theme-toggle {
+                width: 100%;
+                height: auto;
+                border-radius: 10px;
+                padding: 12px 15px;
+                margin: 10px 0 0 0;
+                justify-content: flex-start;
+                gap: 10px;
+            }
+            .theme-toggle:hover {
+                transform: none;
+            }
+            .theme-toggle .theme-label {
+                display: inline-block;
+                font-weight: 500;
+                font-size: 1rem;
+            }
+            .theme-toggle i {
+                font-size: 1.2rem;
+            }
+        }
         .navbar-brand {
             font-size: 1.5rem;
             font-weight: 700;
@@ -784,6 +811,27 @@
             .nav-link::after { display: none; }
         }
 
+        /* Light mode mobile menu & navbar fixes */
+        [data-theme="light"] .navbar-toggler {
+            border-color: var(--primary-color);
+        }
+        [data-theme="light"] .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 107, 107, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+        [data-theme="light"] .navbar-collapse {
+            background: rgba(255, 255, 255, 0.98) !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        [data-theme="light"] .nav-link {
+            color: #1a1a1a !important;
+        }
+        [data-theme="light"] .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+        [data-theme="light"] .navbar.scrolled {
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+        }
+
         /* Touch Device Optimizations */
         @media (hover: none) {
             .project-card, .skill-item, .testimonial-card {
@@ -995,6 +1043,7 @@
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
                     <i class="fas fa-sun"></i>
                     <i class="fas fa-moon"></i>
+                    <span class="theme-label">Dark</span>
                 </button>
             </div>
         </div>
@@ -1481,6 +1530,7 @@
                 initModal();
                 initTypewriter();
                 initThemeToggle();
+                initMobileMenuClose();
 
                 // Desktop-only features
                 if (isDesktop && !prefersReducedMotion) {
@@ -1498,12 +1548,33 @@
                 const themeToggle = document.getElementById('themeToggle');
                 if (!themeToggle) return;
 
+                const themeLabel = themeToggle.querySelector('.theme-label');
+
+                // Update label based on current theme
+                function updateThemeLabel() {
+                    const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+                    if (themeLabel) {
+                        themeLabel.textContent = currentTheme === 'dark' ? 'Dark Mode' : 'Light Mode';
+                    }
+                }
+
+                // Initial label update
+                updateThemeLabel();
+
                 themeToggle.addEventListener('click', () => {
                     const currentTheme = document.documentElement.getAttribute('data-theme');
                     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
                     document.documentElement.setAttribute('data-theme', newTheme);
                     localStorage.setItem('theme', newTheme);
+                    updateThemeLabel();
+
+                    // Close mobile menu after theme change
+                    const navbarCollapse = document.getElementById('navbarNav');
+                    if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+                        const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+                        if (bsCollapse) bsCollapse.hide();
+                    }
                 });
 
                 // Listen for system theme changes
@@ -1512,7 +1583,39 @@
                     if (!localStorage.getItem('theme')) {
                         const newTheme = e.matches ? 'dark' : 'light';
                         document.documentElement.setAttribute('data-theme', newTheme);
+                        updateThemeLabel();
                     }
+                });
+            }
+
+            // Close mobile menu when tapping outside
+            function initMobileMenuClose() {
+                const navbarCollapse = document.getElementById('navbarNav');
+                const navbarToggler = document.querySelector('.navbar-toggler');
+
+                if (!navbarCollapse || !navbarToggler) return;
+
+                // Close menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    const isMenuOpen = navbarCollapse.classList.contains('show');
+                    const clickedInsideMenu = navbarCollapse.contains(e.target);
+                    const clickedToggler = navbarToggler.contains(e.target);
+
+                    if (isMenuOpen && !clickedInsideMenu && !clickedToggler) {
+                        const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+                        if (bsCollapse) bsCollapse.hide();
+                    }
+                });
+
+                // Close menu when clicking a nav link
+                const navLinks = navbarCollapse.querySelectorAll('.nav-link');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (navbarCollapse.classList.contains('show')) {
+                            const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+                            if (bsCollapse) bsCollapse.hide();
+                        }
+                    });
                 });
             }
 
