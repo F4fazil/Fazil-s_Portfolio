@@ -11,10 +11,15 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Performance Optimized Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+    <!-- Performance Optimized Libraries - Desktop Only -->
+    <script>
+        // Only load heavy libraries on desktop
+        if (window.innerWidth > 768 && !('ontouchstart' in window)) {
+            document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer><\/script>');
+            document.write('<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" defer><\/script>');
+        }
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" defer></script>
     
     <style>
         /* Professional Portfolio CSS - Optimized for Performance */
@@ -304,6 +309,46 @@
             transform: translateY(-3px);
             box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
             color: white;
+        }
+
+        /* Hero Profile Image */
+        .hero-image-col {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero-image-wrapper {
+            position: relative;
+            max-width: 400px;
+            animation: floatImage 4s ease-in-out infinite;
+        }
+        .hero-profile-img {
+            width: 100%;
+            max-width: 380px;
+            height: auto;
+            filter: drop-shadow(0 20px 40px rgba(255, 107, 107, 0.3));
+            transition: transform var(--transition-smooth);
+        }
+        .hero-profile-img:hover {
+            transform: scale(1.02);
+        }
+        @keyframes floatImage {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        @media (max-width: 991px) {
+            .hero-image-col {
+                margin-top: 40px;
+                order: -1;
+            }
+            .hero-image-wrapper {
+                max-width: 280px;
+            }
+        }
+        @media (max-width: 576px) {
+            .hero-image-wrapper {
+                max-width: 220px;
+            }
         }
 
         /* Floating Shapes - Desktop Only */
@@ -748,6 +793,149 @@
 
         /* Hide unused elements */
         .morphing-background, .quantum-particles { display: none; }
+
+        /* ========== MOBILE PERFORMANCE OPTIMIZATIONS ========== */
+        @media (max-width: 768px) {
+            /* Disable expensive animations on mobile */
+            *, *::before, *::after {
+                animation-duration: 0.3s !important;
+                transition-duration: 0.2s !important;
+            }
+
+            /* Disable floating animation for better performance */
+            .hero-image-wrapper {
+                animation: none !important;
+            }
+
+            /* Disable gradient animation */
+            .hero h1, .loading-logo {
+                animation: none !important;
+                background-size: 100% 100% !important;
+            }
+
+            /* Simplify backdrop filters (expensive on mobile) */
+            .navbar, .modal-overlay {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+            }
+            .navbar {
+                background: var(--navbar-scrolled-bg) !important;
+            }
+
+            /* Use simpler backgrounds */
+            .project-card, .testimonial-card, .skill-item {
+                background: var(--card-bg) !important;
+                box-shadow: none !important;
+            }
+
+            /* Optimize scroll animations - simpler transforms */
+            .scroll-animate,
+            .scroll-animate-left,
+            .scroll-animate-right,
+            .scroll-animate-scale {
+                opacity: 0;
+                transform: translateY(20px) !important;
+                transition: opacity 0.3s ease, transform 0.3s ease !important;
+            }
+            .scroll-animate.visible,
+            .scroll-animate-left.visible,
+            .scroll-animate-right.visible,
+            .scroll-animate-scale.visible {
+                opacity: 1;
+                transform: translateY(0) !important;
+            }
+
+            /* Disable hover effects entirely on mobile */
+            .project-card:hover,
+            .skill-item:hover,
+            .testimonial-card:hover,
+            .liquid-button:hover {
+                transform: none !important;
+                box-shadow: none !important;
+            }
+
+            /* Optimize hero profile image */
+            .hero-profile-img {
+                filter: none !important;
+            }
+
+            /* Reduce section padding for faster scroll */
+            .section {
+                padding: 50px 0 !important;
+            }
+
+            /* Simplify loading screen */
+            .loading-screen {
+                background: #000428 !important;
+            }
+            .dna-loader {
+                display: none !important;
+            }
+
+            /* Hardware acceleration hints */
+            .project-card,
+            .testimonial-card,
+            .skill-item,
+            .navbar {
+                will-change: auto !important;
+                transform: translateZ(0);
+                backface-visibility: hidden;
+            }
+
+            /* Optimize font rendering */
+            body {
+                text-rendering: optimizeSpeed;
+                -webkit-font-smoothing: antialiased;
+            }
+
+            /* Reduce box shadows */
+            .liquid-button {
+                box-shadow: 0 5px 15px rgba(255, 107, 107, 0.2) !important;
+            }
+
+            /* Simpler nav link styles */
+            .nav-link::after {
+                display: none !important;
+            }
+        }
+
+        /* Extra small devices - even more optimizations */
+        @media (max-width: 480px) {
+            /* Minimal animations */
+            .scroll-animate,
+            .scroll-animate-left,
+            .scroll-animate-right,
+            .scroll-animate-scale {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+
+            /* Smaller images for faster loading */
+            .project-img {
+                height: 150px !important;
+            }
+
+            /* Reduce font sizes slightly */
+            .hero h1 {
+                font-size: 2.2rem !important;
+            }
+            .section-title {
+                font-size: 1.8rem !important;
+            }
+
+            /* Stack tech tags better */
+            .tech-tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+            .tech-tag {
+                font-size: 0.7rem !important;
+                padding: 3px 8px !important;
+                margin: 0 !important;
+            }
+        }
     </style>
 </head>
 
@@ -818,13 +1006,18 @@
         <div class="floating-shape"></div>
         <div class="floating-shape"></div>
         <div class="floating-shape"></div>
-        
+
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-8">
+                <div class="col-lg-6">
                     <h1 class="glitch" data-text="Fazil Qazi">Fazil Qazi</h1>
                     <p id="heroText">Senior Flutter Developer with 3+ years of experience</p>
                     <a href="#projects" class="liquid-button">View My Work</a>
+                </div>
+                <div class="col-lg-6 text-center hero-image-col">
+                    <div class="hero-image-wrapper">
+                        <img src="images/profile.png" alt="Fazil Qazi - Flutter Developer" class="hero-profile-img">
+                    </div>
                 </div>
             </div>
         </div>
@@ -1262,20 +1455,23 @@
             const isMobile = window.innerWidth < 768 || 'ontouchstart' in window;
             const isDesktop = window.innerWidth >= 992 && window.matchMedia('(hover: hover)').matches;
 
-            // Fast loading screen - 1.2 seconds instead of 3
+            // MOBILE: Much faster loading - 0.4s, DESKTOP: 1.2s
+            const loadingTime = isMobile ? 400 : (prefersReducedMotion ? 300 : 1200);
+
+            // Fast loading screen
             document.addEventListener('DOMContentLoaded', function() {
                 const loadingScreen = document.getElementById('loadingScreen');
 
-                // Hide loading screen quickly
+                // Hide loading screen - faster on mobile
                 setTimeout(() => {
                     if (loadingScreen) {
                         loadingScreen.classList.add('fade-out');
                         setTimeout(() => {
                             loadingScreen.style.display = 'none';
                             initAll();
-                        }, 600);
+                        }, isMobile ? 200 : 600);
                     }
-                }, prefersReducedMotion ? 300 : 1200);
+                }, loadingTime);
             });
 
             function initAll() {
@@ -1352,32 +1548,45 @@
                 animate();
             }
 
-            // Scroll animations with IntersectionObserver
+            // Scroll animations with IntersectionObserver - Optimized for mobile
             function initScrollAnimations() {
                 const elements = document.querySelectorAll('.scroll-animate, .scroll-animate-left, .scroll-animate-right, .scroll-animate-scale');
+
+                // On mobile: show all elements immediately for better performance
+                if (isMobile && window.innerWidth < 480) {
+                    elements.forEach(el => el.classList.add('visible'));
+                    return;
+                }
 
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach((entry, index) => {
                         if (entry.isIntersecting) {
-                            // Stagger animations slightly
+                            // Mobile: no stagger delay, Desktop: staggered
+                            const delay = isMobile ? 0 : (prefersReducedMotion ? 0 : index * 50);
                             setTimeout(() => {
                                 entry.target.classList.add('visible');
-                            }, prefersReducedMotion ? 0 : index * 50);
+                            }, delay);
                             observer.unobserve(entry.target);
                         }
                     });
                 }, {
-                    threshold: 0.15,
-                    rootMargin: '0px 0px -30px 0px'
+                    threshold: isMobile ? 0.05 : 0.15, // Lower threshold on mobile for faster trigger
+                    rootMargin: isMobile ? '0px 0px 50px 0px' : '0px 0px -30px 0px'
                 });
 
                 elements.forEach(el => observer.observe(el));
             }
 
-            // Navbar scroll effect
+            // Navbar scroll effect - Optimized with passive listener
             function initNavbar() {
                 const navbar = document.querySelector('.navbar');
                 if (!navbar) return;
+
+                // On mobile, navbar is always styled as scrolled
+                if (isMobile) {
+                    navbar.classList.add('scrolled');
+                    return;
+                }
 
                 let ticking = false;
                 window.addEventListener('scroll', () => {
@@ -1388,12 +1597,23 @@
                         });
                         ticking = true;
                     }
-                });
+                }, { passive: true });
             }
 
-            // Skill bars animation
+            // Skill bars animation - Optimized for mobile
             function initSkillBars() {
                 const skillItems = document.querySelectorAll('.skill-item');
+
+                // On mobile: animate immediately without delay
+                if (isMobile) {
+                    skillItems.forEach(item => {
+                        const progressBar = item.querySelector('.skill-progress');
+                        if (progressBar) {
+                            progressBar.style.width = (progressBar.getAttribute('data-width') || 90) + '%';
+                        }
+                    });
+                    return;
+                }
 
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
@@ -1525,14 +1745,15 @@
                 });
             }
 
-            // Typewriter effect
+            // Typewriter effect - Disabled on mobile for faster load
             function initTypewriter() {
                 const element = document.getElementById('heroText');
                 if (!element) return;
 
                 const text = "Senior Flutter Developer with 3+ years of experience";
 
-                if (prefersReducedMotion) {
+                // Skip typewriter on mobile for instant display
+                if (prefersReducedMotion || isMobile) {
                     element.textContent = text;
                     return;
                 }
