@@ -22,9 +22,39 @@
             --primary-color: #ff6b6b;
             --secondary-color: #4ecdc4;
             --dark-bg: #0a0a0a;
+            --light-bg: #f5f5f7;
             --glass-bg: rgba(10, 10, 10, 0.8);
+            --glass-bg-light: rgba(255, 255, 255, 0.8);
+            --text-color: #fff;
+            --text-color-secondary: rgba(255, 255, 255, 0.85);
+            --text-color-muted: rgba(255, 255, 255, 0.6);
+            --card-bg: rgba(20, 20, 20, 0.9);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --skill-bg: rgba(255, 255, 255, 0.02);
+            --skill-border: rgba(255, 255, 255, 0.08);
+            --skill-bar-bg: rgba(255, 255, 255, 0.1);
+            --navbar-scrolled-bg: rgba(10, 10, 10, 0.95);
+            --modal-bg: rgba(0, 0, 0, 0.9);
+            --modal-content-bg: rgba(20, 20, 20, 0.98);
             --transition-fast: 0.2s ease;
             --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Light Mode */
+        [data-theme="light"] {
+            --dark-bg: #f5f5f7;
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --text-color: #1a1a1a;
+            --text-color-secondary: rgba(26, 26, 26, 0.85);
+            --text-color-muted: rgba(26, 26, 26, 0.6);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --card-border: rgba(0, 0, 0, 0.1);
+            --skill-bg: rgba(0, 0, 0, 0.02);
+            --skill-border: rgba(0, 0, 0, 0.08);
+            --skill-bar-bg: rgba(0, 0, 0, 0.1);
+            --navbar-scrolled-bg: rgba(255, 255, 255, 0.95);
+            --modal-bg: rgba(255, 255, 255, 0.9);
+            --modal-content-bg: rgba(255, 255, 255, 0.98);
         }
 
         /* Respect user motion preferences */
@@ -49,9 +79,10 @@
         body {
             font-family: 'Poppins', sans-serif;
             background: var(--dark-bg);
-            color: #fff;
+            color: var(--text-color);
             line-height: 1.7;
             overflow-x: hidden;
+            transition: background-color var(--transition-smooth), color var(--transition-smooth);
         }
 
         /* Custom Cursor - Desktop Only */
@@ -157,9 +188,38 @@
             transition: all var(--transition-smooth);
         }
         .navbar.scrolled {
-            background: rgba(10, 10, 10, 0.95) !important;
+            background: var(--navbar-scrolled-bg) !important;
             box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
         }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            margin-left: 15px;
+        }
+        .theme-toggle:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: rotate(180deg);
+        }
+        .theme-toggle i {
+            font-size: 1.1rem;
+        }
+        [data-theme="light"] .theme-toggle .fa-sun { display: none; }
+        [data-theme="light"] .theme-toggle .fa-moon { display: inline-block; }
+        [data-theme="dark"] .theme-toggle .fa-sun { display: inline-block; }
+        [data-theme="dark"] .theme-toggle .fa-moon { display: none; }
+        .theme-toggle .fa-moon { display: none; }
         .navbar-brand {
             font-size: 1.5rem;
             font-weight: 700;
@@ -169,7 +229,7 @@
             -webkit-text-fill-color: transparent;
         }
         .nav-link {
-            color: rgba(255, 255, 255, 0.9) !important;
+            color: var(--text-color-secondary) !important;
             font-weight: 500;
             padding: 8px 20px !important;
             position: relative;
@@ -220,7 +280,7 @@
         }
         .hero p {
             font-size: clamp(1rem, 3vw, 1.4rem);
-            color: rgba(255,255,255,0.85);
+            color: var(--text-color-secondary);
             margin-bottom: 30px;
             min-height: 1.5em;
         }
@@ -269,6 +329,9 @@
         .section-dark {
             background: linear-gradient(135deg, rgba(15, 15, 15, 1), rgba(5, 5, 5, 1));
         }
+        [data-theme="light"] .section-dark {
+            background: linear-gradient(135deg, rgba(235, 235, 240, 1), rgba(245, 245, 247, 1));
+        }
         .section-title {
             font-size: clamp(2rem, 6vw, 3rem);
             font-weight: 700;
@@ -300,7 +363,7 @@
             color: var(--primary-color);
         }
         .about-content p {
-            color: rgba(255, 255, 255, 0.85);
+            color: var(--text-color-secondary);
             margin-bottom: 25px;
             font-size: clamp(0.95rem, 2vw, 1.1rem);
         }
@@ -313,9 +376,10 @@
         .about-info p {
             margin: 0;
             padding: 12px 15px;
-            background: rgba(255, 255, 255, 0.03);
+            background: var(--skill-bg);
             border-radius: 10px;
             border-left: 3px solid var(--primary-color);
+            color: var(--text-color-secondary);
         }
         .about-info strong { color: var(--secondary-color); }
 
@@ -324,8 +388,8 @@
             margin-bottom: 25px;
             padding: 20px;
             border-radius: 15px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: var(--skill-bg);
+            border: 1px solid var(--skill-border);
             transition: all var(--transition-smooth);
         }
         @media (hover: hover) {
@@ -344,7 +408,7 @@
         }
         .skill-bar {
             height: 10px;
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--skill-bar-bg);
             border-radius: 5px;
             overflow: hidden;
         }
@@ -358,12 +422,12 @@
 
         /* Project Cards */
         .project-card {
-            background: rgba(20, 20, 20, 0.9);
+            background: var(--card-bg);
             border-radius: 20px;
             padding: 20px;
             margin-bottom: 30px;
             transition: all var(--transition-smooth);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--card-border);
             height: 100%;
         }
         @media (hover: hover) {
@@ -392,7 +456,7 @@
             color: var(--primary-color);
         }
         .project-card > p {
-            color: rgba(255, 255, 255, 0.75);
+            color: var(--text-color-secondary);
             font-size: 0.9rem;
             margin-bottom: 15px;
             line-height: 1.6;
@@ -427,11 +491,11 @@
 
         /* Testimonials */
         .testimonial-card {
-            background: rgba(20, 20, 20, 0.9);
+            background: var(--card-bg);
             border-radius: 20px;
             padding: clamp(25px, 5vw, 35px);
             margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--card-border);
             transition: all var(--transition-smooth);
             position: relative;
             height: 100%;
@@ -454,7 +518,7 @@
         }
         .testimonial-text {
             font-style: italic;
-            color: rgba(255,255,255,0.85);
+            color: var(--text-color-secondary);
             margin-bottom: 20px;
             font-size: clamp(0.95rem, 2vw, 1.05rem);
             line-height: 1.8;
@@ -482,7 +546,7 @@
             font-size: 1rem;
         }
         .author-info p {
-            color: rgba(255,255,255,0.6);
+            color: var(--text-color-muted);
             margin: 0;
             font-size: 0.85rem;
         }
@@ -493,12 +557,28 @@
             font-size: 2rem;
             color: rgba(255, 107, 107, 0.15);
         }
+        .review-rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 15px;
+        }
+        .review-rating i {
+            color: #ffc107;
+            font-size: 1rem;
+        }
+        .review-rating span {
+            margin-left: 8px;
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 1rem;
+        }
 
         /* Modal */
         .modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.9);
+            background: var(--modal-bg);
             display: none;
             justify-content: center;
             align-items: center;
@@ -508,7 +588,7 @@
             -webkit-backdrop-filter: blur(10px);
         }
         .modal-content {
-            background: rgba(20, 20, 20, 0.98);
+            background: var(--modal-content-bg);
             border-radius: 20px;
             padding: clamp(25px, 5vw, 40px);
             max-width: 600px;
@@ -516,10 +596,11 @@
             max-height: 85vh;
             overflow-y: auto;
             position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--card-border);
             transform: scale(0.9) translateY(20px);
             opacity: 0;
             transition: all 0.3s ease;
+            color: var(--text-color);
         }
         .modal-overlay.show .modal-content {
             transform: scale(1) translateY(0);
@@ -544,7 +625,7 @@
             padding: 8px 0;
             padding-left: 20px;
             position: relative;
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--text-color-secondary);
         }
         .modal-content li::before {
             content: '';
@@ -648,11 +729,11 @@
         /* Mobile Menu Fix */
         @media (max-width: 991px) {
             .navbar-collapse {
-                background: rgba(10, 10, 10, 0.98);
+                background: var(--navbar-scrolled-bg);
                 padding: 20px;
                 border-radius: 15px;
                 margin-top: 15px;
-                border: 1px solid rgba(255, 255, 255, 0.1);
+                border: 1px solid var(--card-border);
             }
             .nav-link { padding: 12px 15px !important; }
             .nav-link::after { display: none; }
@@ -719,7 +800,14 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#projects">Projects</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#reviews">Reviews</a>
+                    </li>
                 </ul>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-moon"></i>
+                </button>
             </div>
         </div>
     </nav>
@@ -822,8 +910,14 @@
                         <p>Premium audio streaming app with high-fidelity sound quality, offline playback, and personalized music recommendations.</p>
                         <div class="tech-tags">
                             <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">Dart</span>
                             <span class="tech-tag">Audio Streaming</span>
+                            <span class="tech-tag">Firebase</span>
+                            <span class="tech-tag">SQLite</span>
+                            <span class="tech-tag">REST API</span>
+                            <span class="tech-tag">BLoC Pattern</span>
                             <span class="tech-tag">Offline Mode</span>
+                            <span class="tech-tag">Push Notifications</span>
                         </div>
                         <button class="view-details-btn" data-project="Pure Audio">View Details</button>
                     </div>
@@ -837,8 +931,14 @@
                         <p>Complete salon management solution with appointment booking, service catalog, staff scheduling, and customer loyalty programs.</p>
                         <div class="tech-tags">
                             <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">Dart</span>
+                            <span class="tech-tag">Firebase</span>
                             <span class="tech-tag">Booking System</span>
                             <span class="tech-tag">Admin Panel</span>
+                            <span class="tech-tag">Stripe Payments</span>
+                            <span class="tech-tag">Provider</span>
+                            <span class="tech-tag">Cloud Functions</span>
+                            <span class="tech-tag">FCM</span>
                         </div>
                         <button class="view-details-btn" data-project="Saloon App">View Details</button>
                     </div>
@@ -852,8 +952,14 @@
                         <p>Comprehensive personal development platform with goal tracking, habit building, progress analytics, and motivational content.</p>
                         <div class="tech-tags">
                             <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">Dart</span>
+                            <span class="tech-tag">Firebase</span>
                             <span class="tech-tag">Analytics</span>
                             <span class="tech-tag">Goal Tracking</span>
+                            <span class="tech-tag">Charts</span>
+                            <span class="tech-tag">GetX</span>
+                            <span class="tech-tag">Local Notifications</span>
+                            <span class="tech-tag">Hive DB</span>
                         </div>
                         <button class="view-details-btn" data-project="Success 360">View Details</button>
                     </div>
@@ -867,8 +973,14 @@
                         <p>Order delicious food from the comfort of your home with our convenient food delivery app.</p>
                         <div class="tech-tags">
                             <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">Dart</span>
                             <span class="tech-tag">Firebase</span>
-                            <span class="tech-tag">Payment Gateway</span>
+                            <span class="tech-tag">Google Maps</span>
+                            <span class="tech-tag">Stripe</span>
+                            <span class="tech-tag">REST API</span>
+                            <span class="tech-tag">Riverpod</span>
+                            <span class="tech-tag">Real-time Tracking</span>
+                            <span class="tech-tag">Push Notifications</span>
                         </div>
                         <button class="view-details-btn" data-project="FoodieExpress">View Details</button>
                     </div>
@@ -882,8 +994,14 @@
                         <p>Smart productivity app for effortless table creation and team collaboration with AI-powered features.</p>
                         <div class="tech-tags">
                             <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">Dart</span>
                             <span class="tech-tag">AI Integration</span>
+                            <span class="tech-tag">WebSocket</span>
                             <span class="tech-tag">Real-time Sync</span>
+                            <span class="tech-tag">Cloud Firestore</span>
+                            <span class="tech-tag">BLoC</span>
+                            <span class="tech-tag">Multi-platform</span>
+                            <span class="tech-tag">Offline First</span>
                         </div>
                         <button class="view-details-btn" data-project="HimaTable">View Details</button>
                     </div>
@@ -897,14 +1015,20 @@
                         <p>Smart event networking app that creates real-world meetups based on personality, hobbies, and interests matching.</p>
                         <div class="tech-tags">
                             <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">Dart</span>
                             <span class="tech-tag">AI Matching</span>
-                            <span class="tech-tag">Event Management</span>
+                            <span class="tech-tag">Firebase</span>
+                            <span class="tech-tag">Google Maps</span>
+                            <span class="tech-tag">Real-time Chat</span>
+                            <span class="tech-tag">Provider</span>
+                            <span class="tech-tag">Geolocation</span>
+                            <span class="tech-tag">Social Auth</span>
                         </div>
                         <button class="view-details-btn" data-project="EventMaker">View Details</button>
                     </div>
                 </div>
                 
-                <!-- Project 4 -->
+                <!-- Project 7 - Fashion Reels -->
                 <div class="col-lg-4 col-md-6">
                     <div class="project-card scroll-animate-scale">
                         <div class="project-img" style="background-image: url('images/clothing app.png')"></div>
@@ -912,14 +1036,20 @@
                         <p>Interactive fashion marketplace featuring TikTok-style clothing reels, 3D visualization, and secure payment integration.</p>
                         <div class="tech-tags">
                             <span class="tech-tag">Flutter</span>
-                            <span class="tech-tag">Video Reels</span>
+                            <span class="tech-tag">Dart</span>
+                            <span class="tech-tag">Video Streaming</span>
                             <span class="tech-tag">3D Effects</span>
+                            <span class="tech-tag">Firebase</span>
+                            <span class="tech-tag">Stripe</span>
+                            <span class="tech-tag">GetX</span>
+                            <span class="tech-tag">Video Player</span>
+                            <span class="tech-tag">E-commerce</span>
                         </div>
                         <button class="view-details-btn" data-project="Fashion Reels">View Details</button>
                     </div>
                 </div>
                 
-                <!-- Project 5 -->
+                <!-- Project 8 - RentNova -->
                 <div class="col-lg-4 col-md-6">
                     <div class="project-card scroll-animate-scale">
                         <div class="project-img" style="background-image: url('images/rentnova.png')"></div>
@@ -927,14 +1057,20 @@
                         <p>Next-generation property rental platform with dual-profile system and admin verification.</p>
                         <div class="tech-tags">
                             <span class="tech-tag">Flutter</span>
-                            <span class="tech-tag">Profile Switching</span>
+                            <span class="tech-tag">Dart</span>
+                            <span class="tech-tag">Firebase</span>
                             <span class="tech-tag">Real-time Chat</span>
+                            <span class="tech-tag">Admin Panel</span>
+                            <span class="tech-tag">Google Maps</span>
+                            <span class="tech-tag">BLoC</span>
+                            <span class="tech-tag">Cloud Storage</span>
+                            <span class="tech-tag">Document Mgmt</span>
                         </div>
                         <button class="view-details-btn" data-project="RentNova">View Details</button>
                     </div>
                 </div>
                 
-                <!-- Project 6 -->
+                <!-- Project 9 - Moda Heaven -->
                 <div class="col-lg-4 col-md-6">
                     <div class="project-card scroll-animate-scale">
                         <div class="project-img" style="background-image: url('images/moda heaven.png')"></div>
@@ -942,14 +1078,20 @@
                         <p>Premium fashion marketplace with 3D product visualization and video reels.</p>
                         <div class="tech-tags">
                             <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">Dart</span>
                             <span class="tech-tag">3D Modeling</span>
                             <span class="tech-tag">AR Integration</span>
+                            <span class="tech-tag">Firebase</span>
+                            <span class="tech-tag">Video Reels</span>
+                            <span class="tech-tag">Provider</span>
+                            <span class="tech-tag">E-commerce</span>
+                            <span class="tech-tag">Social Shopping</span>
                         </div>
                         <button class="view-details-btn" data-project="Moda Heaven">View Details</button>
                     </div>
                 </div>
                 
-                <!-- Project 7 -->
+                <!-- Project 10 - VisionCraft -->
                 <div class="col-lg-4 col-md-6">
                     <div class="project-card scroll-animate-scale">
                         <div class="project-img" style="background-image: url('images/glasses.png')"></div>
@@ -957,14 +1099,20 @@
                         <p>Advanced eyewear e-commerce platform with virtual try-on technology.</p>
                         <div class="tech-tags">
                             <span class="tech-tag">Flutter</span>
-                            <span class="tech-tag">AR Try-On</span>
+                            <span class="tech-tag">Dart</span>
+                            <span class="tech-tag">AR Technology</span>
+                            <span class="tech-tag">Camera API</span>
+                            <span class="tech-tag">Firebase</span>
+                            <span class="tech-tag">Stripe</span>
+                            <span class="tech-tag">GetX</span>
+                            <span class="tech-tag">Face Detection</span>
                             <span class="tech-tag">E-commerce</span>
                         </div>
                         <button class="view-details-btn" data-project="VisionCraft">View Details</button>
                     </div>
                 </div>
                 
-                <!-- Project 8 -->
+                <!-- Project 11 - SoulMatch -->
                 <div class="col-lg-4 col-md-6">
                     <div class="project-card scroll-animate-scale">
                         <div class="project-img" style="background-image: url('images/FindYourPartner.png')"></div>
@@ -972,8 +1120,14 @@
                         <p>Intelligent dating platform with personality-based matching algorithms.</p>
                         <div class="tech-tags">
                             <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">Dart</span>
                             <span class="tech-tag">AI Matching</span>
+                            <span class="tech-tag">Firebase</span>
                             <span class="tech-tag">Real-time Chat</span>
+                            <span class="tech-tag">Video Calling</span>
+                            <span class="tech-tag">BLoC</span>
+                            <span class="tech-tag">WebRTC</span>
+                            <span class="tech-tag">Push Notifications</span>
                         </div>
                         <button class="view-details-btn" data-project="SoulMatch">View Details</button>
                     </div>
@@ -983,20 +1137,28 @@
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="section section-dark">
+    <!-- Client Reviews Section -->
+    <section id="reviews" class="section section-dark">
         <div class="container">
-            <h2 class="section-title scroll-animate">What Clients Say</h2>
+            <h2 class="section-title scroll-animate">Client Reviews</h2>
             <div class="row">
                 <div class="col-lg-4 col-md-6">
                     <div class="testimonial-card scroll-animate-left">
                         <i class="fas fa-quote-right quote-icon"></i>
-                        <p class="testimonial-text">"Fazil delivered an exceptional Flutter app that exceeded our expectations. His attention to detail and technical expertise made our project a huge success."</p>
+                        <div class="review-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>5.0</span>
+                        </div>
+                        <p class="testimonial-text">"I have an app already. They took my vision and made it even better. Their deep understanding of Flutter made the process smooth and easy. Allowing for quick turn arounds and implementation of my needs of the app. Look forward to working with them again for sure."</p>
                         <div class="testimonial-author">
-                            <div class="author-avatar">JD</div>
+                            <div class="author-avatar">MK</div>
                             <div class="author-info">
-                                <h5>Hima Egypt</h5>
-                              
+                                <h5>Maheka R.</h5>
+                                <p>App Owner</p>
                             </div>
                         </div>
                     </div>
@@ -1004,12 +1166,20 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="testimonial-card scroll-animate">
                         <i class="fas fa-quote-right quote-icon"></i>
-                        <p class="testimonial-text">"Working with Fazil was a pleasure. He understood our vision perfectly and created a beautiful, functional app with amazing UI/UX design."</p>
+                        <div class="review-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>5.0</span>
+                        </div>
+                        <p class="testimonial-text">"Professional at work. He can easily implement ideas. He helps a lot in matters. He completes the project on time and does not delay. He always asks you if you want to make any changes with an open heart. He has an excellent work spirit."</p>
                         <div class="testimonial-author">
-                            <div class="author-avatar">SM</div>
+                            <div class="author-avatar">HE</div>
                             <div class="author-info">
-                                <h5>Sarah Miller</h5>
-                                <p>Product Manager</p>
+                                <h5>Hima Egypt</h5>
+                                <p>Business Owner</p>
                             </div>
                         </div>
                     </div>
@@ -1017,12 +1187,20 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="testimonial-card scroll-animate-right">
                         <i class="fas fa-quote-right quote-icon"></i>
-                        <p class="testimonial-text">"Fazil's expertise in Flutter development is remarkable. He delivered our project on time with excellent performance and clean code architecture."</p>
+                        <div class="review-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>5.0</span>
+                        </div>
+                        <p class="testimonial-text">"Very Professional & Responsive. Great at what he does and understanding idea concepts."</p>
                         <div class="testimonial-author">
-                            <div class="author-avatar">AR</div>
+                            <div class="author-avatar">AL</div>
                             <div class="author-info">
-                                <h5>Ahmed Rahman</h5>
-                                <p> Digital Ventures</p>
+                                <h5>Alecia Lucas</h5>
+                                <p>Entrepreneur</p>
                             </div>
                         </div>
                     </div>
@@ -1059,6 +1237,26 @@
         (function() {
             'use strict';
 
+            // Theme Management - Initialize immediately before DOM content loads
+            function initTheme() {
+                const savedTheme = localStorage.getItem('theme');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+                // Determine initial theme
+                let theme;
+                if (savedTheme) {
+                    theme = savedTheme;
+                } else {
+                    theme = prefersDark ? 'dark' : 'light';
+                }
+
+                // Apply theme immediately
+                document.documentElement.setAttribute('data-theme', theme);
+            }
+
+            // Run immediately to prevent flash
+            initTheme();
+
             // Check for reduced motion preference
             const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             const isMobile = window.innerWidth < 768 || 'ontouchstart' in window;
@@ -1086,6 +1284,7 @@
                 initSkillBars();
                 initModal();
                 initTypewriter();
+                initThemeToggle();
 
                 // Desktop-only features
                 if (isDesktop && !prefersReducedMotion) {
@@ -1096,6 +1295,29 @@
                         initParticles();
                     }, 500);
                 }
+            }
+
+            // Theme Toggle functionality
+            function initThemeToggle() {
+                const themeToggle = document.getElementById('themeToggle');
+                if (!themeToggle) return;
+
+                themeToggle.addEventListener('click', () => {
+                    const currentTheme = document.documentElement.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+                    document.documentElement.setAttribute('data-theme', newTheme);
+                    localStorage.setItem('theme', newTheme);
+                });
+
+                // Listen for system theme changes
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                    // Only auto-switch if user hasn't manually set a preference
+                    if (!localStorage.getItem('theme')) {
+                        const newTheme = e.matches ? 'dark' : 'light';
+                        document.documentElement.setAttribute('data-theme', newTheme);
+                    }
+                });
             }
 
             // Smooth custom cursor
@@ -1199,57 +1421,57 @@
                 const projectDetails = {
                     'Pure Audio': {
                         description: 'Premium audio streaming application delivering high-fidelity sound quality with seamless offline playback and AI-powered personalized music recommendations.',
-                        technologies: ['Flutter', 'Dart', 'Audio Engine', 'Firebase', 'Machine Learning'],
+                        technologies: ['Flutter', 'Dart', 'Audio Engine', 'Firebase', 'SQLite', 'REST API', 'BLoC Pattern', 'Push Notifications', 'Machine Learning', 'Background Services'],
                         features: ['Hi-Fi Audio Streaming', 'Offline Playback', 'Personalized Playlists', 'Equalizer Controls', 'Background Playback', 'Cross-device Sync']
                     },
                     'Saloon App': {
                         description: 'Complete salon management solution designed to streamline appointment booking, manage service catalogs, handle staff scheduling, and run customer loyalty programs.',
-                        technologies: ['Flutter', 'Dart', 'Firebase', 'Push Notifications', 'Payment Integration'],
+                        technologies: ['Flutter', 'Dart', 'Firebase', 'Stripe Payments', 'Cloud Functions', 'FCM', 'Provider', 'Google Calendar API', 'REST API', 'Admin Dashboard'],
                         features: ['Online Booking', 'Service Catalog', 'Staff Management', 'Loyalty Programs', 'Customer Reviews', 'Revenue Analytics']
                     },
                     'Success 360': {
                         description: 'Comprehensive personal development platform that helps users set and track goals, build positive habits, analyze progress with detailed analytics, and stay motivated.',
-                        technologies: ['Flutter', 'Dart', 'Firebase', 'Charts & Analytics', 'Local Notifications'],
+                        technologies: ['Flutter', 'Dart', 'Firebase', 'Charts & Analytics', 'Local Notifications', 'Hive DB', 'GetX', 'Shared Preferences', 'FL Charts', 'Gamification'],
                         features: ['Goal Setting & Tracking', 'Habit Builder', 'Progress Analytics', 'Daily Motivation', 'Achievement Badges', 'Community Support']
                     },
                     'FoodieExpress': {
                         description: 'A comprehensive food delivery application with real-time tracking and secure payments.',
-                        technologies: ['Flutter', 'Dart', 'Firebase', 'Stripe', 'Google Maps'],
+                        technologies: ['Flutter', 'Dart', 'Firebase', 'Stripe', 'Google Maps', 'REST API', 'Riverpod', 'Real-time Tracking', 'Push Notifications', 'Geolocation'],
                         features: ['Real-time Tracking', 'Multiple Payments', 'Restaurant Management', 'User Reviews']
                     },
                     'HimaTable': {
                         description: 'Smart productivity app for table creation and team collaboration with AI features.',
-                        technologies: ['Flutter', 'AI Integration', 'Real-time Sync', 'Cloud Storage'],
+                        technologies: ['Flutter', 'Dart', 'AI Integration', 'WebSocket', 'Real-time Sync', 'Cloud Firestore', 'BLoC', 'Multi-platform', 'Offline First', 'Excel Export'],
                         features: ['AI-powered Tables', 'Team Collaboration', 'Multi-language Support', 'Cloud Sync']
                     },
                     'EventMaker': {
                         description: 'Smart event networking app that creates real-world meetups based on interests.',
-                        technologies: ['Flutter', 'AI Matching', 'Event Management', 'Real-time Chat'],
+                        technologies: ['Flutter', 'Dart', 'AI Matching', 'Firebase', 'Google Maps', 'Real-time Chat', 'Provider', 'Geolocation', 'Social Auth', 'Calendar Integration'],
                         features: ['Interest Matching', 'Event Creation', 'Social Networking', 'Location Services']
                     },
                     'Fashion Reels': {
                         description: 'Interactive fashion marketplace with TikTok-style reels and 3D visualization.',
-                        technologies: ['Flutter', 'Video Streaming', '3D Effects', 'AR Integration'],
+                        technologies: ['Flutter', 'Dart', 'Video Streaming', '3D Effects', 'Firebase', 'Stripe', 'GetX', 'Video Player', 'E-commerce', 'Social Features'],
                         features: ['Fashion Reels', '3D Visualization', 'Social Features', 'Secure Payments']
                     },
                     'RentNova': {
                         description: 'Next-generation property rental platform with dual-profile system.',
-                        technologies: ['Flutter', 'Profile Management', 'Real-time Chat', 'Admin Panel'],
+                        technologies: ['Flutter', 'Dart', 'Firebase', 'Real-time Chat', 'Admin Panel', 'Google Maps', 'BLoC', 'Cloud Storage', 'Document Management', 'Search Filters'],
                         features: ['Dual Profiles', 'Property Search', 'Real-time Chat', 'Document Management']
                     },
                     'Moda Heaven': {
                         description: 'Premium fashion marketplace with 3D product visualization.',
-                        technologies: ['Flutter', '3D Modeling', 'AR Integration', 'E-commerce'],
+                        technologies: ['Flutter', 'Dart', '3D Modeling', 'AR Integration', 'Firebase', 'Video Reels', 'Provider', 'E-commerce', 'Social Shopping', 'Wishlist'],
                         features: ['3D Products', 'Virtual Try-on', 'Fashion Reels', 'Social Shopping']
                     },
                     'VisionCraft': {
                         description: 'Advanced eyewear e-commerce platform with virtual try-on technology.',
-                        technologies: ['Flutter', 'AR Technology', 'E-commerce', 'Camera Integration'],
+                        technologies: ['Flutter', 'Dart', 'AR Technology', 'Camera API', 'Firebase', 'Stripe', 'GetX', 'Face Detection', 'E-commerce', 'ML Kit'],
                         features: ['Virtual Try-on', 'Prescription Management', 'Product Customization', 'Expert Consultation']
                     },
                     'SoulMatch': {
                         description: 'Intelligent dating platform with personality-based matching algorithms.',
-                        technologies: ['Flutter', 'AI Matching', 'Real-time Chat', 'Video Calling'],
+                        technologies: ['Flutter', 'Dart', 'AI Matching', 'Firebase', 'Real-time Chat', 'Video Calling', 'BLoC', 'WebRTC', 'Push Notifications', 'Profile Verification'],
                         features: ['AI Matching', 'Personality Analysis', 'Secure Messaging', 'Video Dates']
                     }
                 };

@@ -6,7 +6,8 @@
       "Bash(python3:*)",
       "Bash(rm:*)",
       "Bash(grep:*)",
-      "Bash(xargs:*)"
+      "Bash(xargs:*)",
+      "Bash(tree:*)"
     ],
     "deny": []
   }
