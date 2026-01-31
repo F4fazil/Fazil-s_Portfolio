@@ -1,2002 +1,593 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <title>Fazil Qazi - Flutter Developer</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Performance Optimized Libraries - Desktop Only -->
-    <script>
-        // Only load heavy libraries on desktop
-        if (window.innerWidth > 768 && !('ontouchstart' in window)) {
-            document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer><\/script>');
-            document.write('<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" defer><\/script>');
-        }
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
-    
-    <style>
-        /* Professional Portfolio CSS - Optimized for Performance */
-        :root {
-            --primary-color: #ff6b6b;
-            --secondary-color: #4ecdc4;
-            --dark-bg: #0a0a0a;
-            --light-bg: #f5f5f7;
-            --glass-bg: rgba(10, 10, 10, 0.8);
-            --glass-bg-light: rgba(255, 255, 255, 0.8);
-            --text-color: #fff;
-            --text-color-secondary: rgba(255, 255, 255, 0.85);
-            --text-color-muted: rgba(255, 255, 255, 0.6);
-            --card-bg: rgba(20, 20, 20, 0.9);
-            --card-border: rgba(255, 255, 255, 0.08);
-            --skill-bg: rgba(255, 255, 255, 0.02);
-            --skill-border: rgba(255, 255, 255, 0.08);
-            --skill-bar-bg: rgba(255, 255, 255, 0.1);
-            --navbar-scrolled-bg: rgba(10, 10, 10, 0.95);
-            --modal-bg: rgba(0, 0, 0, 0.9);
-            --modal-content-bg: rgba(20, 20, 20, 0.98);
-            --transition-fast: 0.2s ease;
-            --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        /* Light Mode */
-        [data-theme="light"] {
-            --dark-bg: #f5f5f7;
-            --glass-bg: rgba(255, 255, 255, 0.8);
-            --text-color: #1a1a1a;
-            --text-color-secondary: rgba(26, 26, 26, 0.85);
-            --text-color-muted: rgba(26, 26, 26, 0.6);
-            --card-bg: rgba(255, 255, 255, 0.95);
-            --card-border: rgba(0, 0, 0, 0.1);
-            --skill-bg: rgba(0, 0, 0, 0.02);
-            --skill-border: rgba(0, 0, 0, 0.08);
-            --skill-bar-bg: rgba(0, 0, 0, 0.1);
-            --navbar-scrolled-bg: rgba(255, 255, 255, 0.95);
-            --modal-bg: rgba(255, 255, 255, 0.9);
-            --modal-content-bg: rgba(255, 255, 255, 0.98);
-        }
+    <!--=============== FAVICON ===============-->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicons/site.webmanifest">
+    <link rel="mask-icon" href="assets/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="assets/favicons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="assets/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#a789d4">
 
-        /* Respect user motion preferences */
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
+    <!--=============== BOXICONS ===============-->
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <!--=============== SWIPER CSS ===============-->
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
 
-        html {
-            scroll-behavior: smooth;
-        }
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="assets/css/styles.css">
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: var(--dark-bg);
-            color: var(--text-color);
-            line-height: 1.7;
-            overflow-x: hidden;
-            transition: background-color var(--transition-smooth), color var(--transition-smooth);
-        }
-
-        /* Custom Cursor - Desktop Only */
-        @media (min-width: 992px) and (hover: hover) {
-            body { cursor: none; }
-            .cursor, .cursor-follower {
-                position: fixed;
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 9999;
-                transform: translate(-50%, -50%);
-            }
-            .cursor {
-                width: 12px;
-                height: 12px;
-                background: var(--primary-color);
-                mix-blend-mode: difference;
-            }
-            .cursor-follower {
-                width: 35px;
-                height: 35px;
-                border: 2px solid rgba(255, 107, 107, 0.5);
-                transition: transform 0.15s ease-out;
-            }
-        }
-
-        @media (max-width: 991px), (hover: none) {
-            .cursor, .cursor-follower { display: none !important; }
-        }
-
-        /* Background Effects - Simplified for Mobile */
-        #threejs-background, #particles-js {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-        #threejs-background { z-index: -3; }
-        #particles-js { z-index: -2; }
-
-        @media (max-width: 768px) {
-            #threejs-background, #particles-js { display: none; }
-        }
-
-        /* Loading Screen - Fast */
-        .loading-screen {
-            position: fixed;
-            inset: 0;
-            background: linear-gradient(135deg, #000428, #004e92);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
-        }
-        .loading-screen.fade-out {
-            opacity: 0;
-            visibility: hidden;
-        }
-        .loading-logo {
-            font-size: clamp(2rem, 8vw, 4rem);
-            font-weight: 700;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), #45b7d1);
-            background-size: 200% 200%;
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradientShift 2s ease-in-out infinite;
-        }
-        .loading-subtitle {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: clamp(0.9rem, 3vw, 1.2rem);
-            margin-top: 15px;
-            text-align: center;
-            padding: 0 20px;
-        }
-        .dna-loader {
-            width: 50px;
-            height: 50px;
-            margin-top: 30px;
-            position: relative;
-        }
-        .dna-strand {
-            position: absolute;
-            width: 4px;
-            height: 50px;
-            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
-            border-radius: 4px;
-            animation: dnaRotate 1s linear infinite;
-        }
-        .dna-strand:nth-child(1) { left: 12px; }
-        .dna-strand:nth-child(2) { right: 12px; animation-delay: 0.5s; }
-
-        /* Navigation */
-        .navbar {
-            background: transparent !important;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 15px 0;
-            transition: all var(--transition-smooth);
-        }
-        .navbar.scrolled {
-            background: var(--navbar-scrolled-bg) !important;
-            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Theme Toggle Button */
-        .theme-toggle {
-            background: transparent;
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all var(--transition-fast);
-            margin-left: 15px;
-        }
-        .theme-toggle:hover {
-            background: var(--primary-color);
-            color: white;
-            transform: rotate(180deg);
-        }
-        .theme-toggle i {
-            font-size: 1.1rem;
-        }
-        .theme-toggle .theme-label {
-            display: none;
-        }
-        [data-theme="light"] .theme-toggle .fa-sun { display: none; }
-        [data-theme="light"] .theme-toggle .fa-moon { display: inline-block; }
-        [data-theme="dark"] .theme-toggle .fa-sun { display: inline-block; }
-        [data-theme="dark"] .theme-toggle .fa-moon { display: none; }
-        .theme-toggle .fa-moon { display: none; }
-
-        /* Mobile theme toggle - show as nav item with label */
-        @media (max-width: 991px) {
-            .theme-toggle {
-                width: 100%;
-                height: auto;
-                border-radius: 10px;
-                padding: 12px 15px;
-                margin: 10px 0 0 0;
-                justify-content: flex-start;
-                gap: 10px;
-            }
-            .theme-toggle:hover {
-                transform: none;
-            }
-            .theme-toggle .theme-label {
-                display: inline-block;
-                font-weight: 500;
-                font-size: 1rem;
-            }
-            .theme-toggle i {
-                font-size: 1.2rem;
-            }
-        }
-        .navbar-brand {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .nav-link {
-            color: var(--text-color-secondary) !important;
-            font-weight: 500;
-            padding: 8px 20px !important;
-            position: relative;
-            transition: color var(--transition-fast);
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 20px;
-            right: 20px;
-            height: 2px;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            transform: scaleX(0);
-            transition: transform var(--transition-smooth);
-        }
-        .nav-link:hover { color: var(--primary-color) !important; }
-        .nav-link:hover::after { transform: scaleX(1); }
-
-        .navbar-toggler {
-            border: 2px solid var(--primary-color);
-            padding: 8px 12px;
-        }
-        .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 107, 107, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            padding: 100px 0 60px;
-        }
-        .hero .container { position: relative; z-index: 10; }
-        .hero h1 {
-            font-size: clamp(2.5rem, 10vw, 5rem);
-            font-weight: 700;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), #45b7d1);
-            background-size: 200% 200%;
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-            animation: gradientShift 4s ease-in-out infinite;
-            line-height: 1.2;
-        }
-        .hero p {
-            font-size: clamp(1rem, 3vw, 1.4rem);
-            color: var(--text-color-secondary);
-            margin-bottom: 30px;
-            min-height: 1.5em;
-        }
-        .hero p.typing { border-right: 3px solid var(--primary-color); }
-        .hero p.typing-complete { border-right: none; }
-
-        .liquid-button {
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            border: none;
-            padding: 15px 35px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1rem;
-            text-decoration: none;
-            color: white;
-            display: inline-block;
-            transition: all var(--transition-smooth);
-            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
-        }
-        .liquid-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
-            color: white;
-        }
-
-        /* Hero Profile Image */
-        .hero-image-col {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .hero-image-wrapper {
-            position: relative;
-            max-width: 400px;
-            animation: floatImage 4s ease-in-out infinite;
-        }
-        .hero-profile-img {
-            width: 100%;
-            max-width: 380px;
-            height: auto;
-            filter: drop-shadow(0 20px 40px rgba(255, 107, 107, 0.3));
-            transition: transform var(--transition-smooth);
-        }
-        .hero-profile-img:hover {
-            transform: scale(1.02);
-        }
-        @keyframes floatImage {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-        @media (max-width: 991px) {
-            .hero-image-col {
-                margin-top: 40px;
-                order: -1;
-            }
-            .hero-image-wrapper {
-                max-width: 280px;
-            }
-        }
-        @media (max-width: 576px) {
-            .hero-image-wrapper {
-                max-width: 220px;
-            }
-        }
-
-        /* Floating Shapes - Desktop Only */
-        .floating-shape {
-            position: absolute;
-            border-radius: 50%;
-            background: linear-gradient(45deg, rgba(255, 107, 107, 0.08), rgba(78, 205, 196, 0.08));
-            animation: floatShape 8s ease-in-out infinite;
-        }
-        .floating-shape:nth-child(1) { width: 80px; height: 80px; top: 20%; left: 5%; }
-        .floating-shape:nth-child(2) { width: 120px; height: 120px; top: 60%; right: 5%; animation-delay: 2s; }
-        .floating-shape:nth-child(3) { width: 60px; height: 60px; bottom: 15%; left: 15%; animation-delay: 4s; }
-
-        @media (max-width: 768px) {
-            .floating-shape { display: none; }
-        }
-
-        /* Sections */
-        .section {
-            padding: clamp(60px, 10vw, 120px) 0;
-            position: relative;
-        }
-        .section-dark {
-            background: linear-gradient(135deg, rgba(15, 15, 15, 1), rgba(5, 5, 5, 1));
-        }
-        [data-theme="light"] .section-dark {
-            background: linear-gradient(135deg, rgba(235, 235, 240, 1), rgba(245, 245, 247, 1));
-        }
-        .section-title {
-            font-size: clamp(2rem, 6vw, 3rem);
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: clamp(40px, 8vw, 60px);
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            position: relative;
-            padding-bottom: 15px;
-        }
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            border-radius: 2px;
-        }
-
-        /* About Section - No Image */
-        .about-content h3 {
-            font-size: clamp(1.5rem, 4vw, 2rem);
-            margin-bottom: 20px;
-            color: var(--primary-color);
-        }
-        .about-content p {
-            color: var(--text-color-secondary);
-            margin-bottom: 25px;
-            font-size: clamp(0.95rem, 2vw, 1.1rem);
-        }
-        .about-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        .about-info p {
-            margin: 0;
-            padding: 12px 15px;
-            background: var(--skill-bg);
-            border-radius: 10px;
-            border-left: 3px solid var(--primary-color);
-            color: var(--text-color-secondary);
-        }
-        .about-info strong { color: var(--secondary-color); }
-
-        /* Skills */
-        .skill-item {
-            margin-bottom: 25px;
-            padding: 20px;
-            border-radius: 15px;
-            background: var(--skill-bg);
-            border: 1px solid var(--skill-border);
-            transition: all var(--transition-smooth);
-        }
-        @media (hover: hover) {
-            .skill-item:hover {
-                background: rgba(255, 107, 107, 0.08);
-                border-color: rgba(255, 107, 107, 0.3);
-                transform: translateY(-5px);
-            }
-        }
-        .skill-name {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-        .skill-bar {
-            height: 10px;
-            background: var(--skill-bar-bg);
-            border-radius: 5px;
-            overflow: hidden;
-        }
-        .skill-progress {
-            height: 100%;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            border-radius: 5px;
-            width: 0;
-            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Project Cards */
-        .project-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 30px;
-            transition: all var(--transition-smooth);
-            border: 1px solid var(--card-border);
-            height: 100%;
-        }
-        @media (hover: hover) {
-            .project-card:hover {
-                transform: translateY(-10px);
-                border-color: var(--primary-color);
-                box-shadow: 0 20px 40px rgba(255, 107, 107, 0.2);
-            }
-            .project-card:hover .project-img { transform: scale(1.05); }
-        }
-        .project-img {
-            width: 100%;
-            height: 200px;
-            background: #222;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            background-size: cover;
-            background-position: center;
-            transition: transform var(--transition-smooth);
-            overflow: hidden;
-        }
-        .project-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: var(--primary-color);
-        }
-        .project-card > p {
-            color: var(--text-color-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-        .tech-tags { margin-bottom: 15px; }
-        .tech-tag {
-            background: rgba(255, 107, 107, 0.1);
-            color: var(--secondary-color);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-right: 8px;
-            margin-bottom: 8px;
-            display: inline-block;
-            border: 1px solid rgba(78, 205, 196, 0.2);
-        }
-        .view-details-btn {
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            border: none;
-            color: white;
-            padding: 10px 22px;
-            border-radius: 25px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all var(--transition-fast);
-            width: 100%;
-        }
-        .view-details-btn:hover {
-            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
-        }
-
-        /* Testimonials */
-        .testimonial-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: clamp(25px, 5vw, 35px);
-            margin-bottom: 30px;
-            border: 1px solid var(--card-border);
-            transition: all var(--transition-smooth);
-            position: relative;
-            height: 100%;
-        }
-        .testimonial-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            border-radius: 20px 20px 0 0;
-        }
-        @media (hover: hover) {
-            .testimonial-card:hover {
-                transform: translateY(-8px);
-                box-shadow: 0 15px 35px rgba(255, 107, 107, 0.15);
-            }
-        }
-        .testimonial-text {
-            font-style: italic;
-            color: var(--text-color-secondary);
-            margin-bottom: 20px;
-            font-size: clamp(0.95rem, 2vw, 1.05rem);
-            line-height: 1.8;
-        }
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-        }
-        .author-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            margin-right: 15px;
-            flex-shrink: 0;
-        }
-        .author-info h5 {
-            color: var(--primary-color);
-            margin: 0 0 3px;
-            font-size: 1rem;
-        }
-        .author-info p {
-            color: var(--text-color-muted);
-            margin: 0;
-            font-size: 0.85rem;
-        }
-        .quote-icon {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 2rem;
-            color: rgba(255, 107, 107, 0.15);
-        }
-        .review-rating {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            margin-bottom: 15px;
-        }
-        .review-rating i {
-            color: #ffc107;
-            font-size: 1rem;
-        }
-        .review-rating span {
-            margin-left: 8px;
-            font-weight: 600;
-            color: var(--primary-color);
-            font-size: 1rem;
-        }
-
-        /* Modal */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: var(--modal-bg);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 20px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-        .modal-content {
-            background: var(--modal-content-bg);
-            border-radius: 20px;
-            padding: clamp(25px, 5vw, 40px);
-            max-width: 600px;
-            width: 100%;
-            max-height: 85vh;
-            overflow-y: auto;
-            position: relative;
-            border: 1px solid var(--card-border);
-            transform: scale(0.9) translateY(20px);
-            opacity: 0;
-            transition: all 0.3s ease;
-            color: var(--text-color);
-        }
-        .modal-overlay.show .modal-content {
-            transform: scale(1) translateY(0);
-            opacity: 1;
-        }
-        .modal-content h3 {
-            color: var(--primary-color);
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            padding-right: 40px;
-        }
-        .modal-content h4 {
-            color: var(--secondary-color);
-            font-size: 1rem;
-            margin: 20px 0 10px;
-        }
-        .modal-content ul {
-            list-style: none;
-            padding: 0;
-        }
-        .modal-content li {
-            padding: 8px 0;
-            padding-left: 20px;
-            position: relative;
-            color: var(--text-color-secondary);
-        }
-        .modal-content li::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 8px;
-            height: 8px;
-            background: var(--primary-color);
-            border-radius: 50%;
-        }
-        .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            background: none;
-            border: none;
-            font-size: 2rem;
-            color: var(--primary-color);
-            cursor: pointer;
-            transition: transform var(--transition-fast);
-            line-height: 1;
-        }
-        .modal-close:hover { transform: rotate(90deg); }
-
-        /* Animations */
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-        @keyframes dnaRotate {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(360deg); }
-        }
-        @keyframes floatShape {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(180deg); }
-        }
-
-        /* Scroll Animations */
-        .scroll-animate,
-        .scroll-animate-left,
-        .scroll-animate-right,
-        .scroll-animate-scale {
-            opacity: 0;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .scroll-animate { transform: translateY(30px); }
-        .scroll-animate-left { transform: translateX(-30px); }
-        .scroll-animate-right { transform: translateX(30px); }
-        .scroll-animate-scale { transform: scale(0.95); }
-
-        .scroll-animate.visible,
-        .scroll-animate-left.visible,
-        .scroll-animate-right.visible,
-        .scroll-animate-scale.visible {
-            opacity: 1;
-            transform: translate(0) scale(1);
-        }
-
-        /* Glitch Effect - Desktop Only */
-        @media (hover: hover) {
-            .glitch { position: relative; }
-            .glitch::before,
-            .glitch::after {
-                content: attr(data-text);
-                position: absolute;
-                top: 0;
-                left: 0;
-                opacity: 0;
-                pointer-events: none;
-            }
-            .glitch:hover::before {
-                animation: glitch-1 0.3s ease-in-out;
-                color: var(--primary-color);
-                z-index: -1;
-            }
-            .glitch:hover::after {
-                animation: glitch-2 0.3s ease-in-out;
-                color: var(--secondary-color);
-                z-index: -2;
-            }
-        }
-        @keyframes glitch-1 {
-            0%, 100% { transform: translate(0); opacity: 0; }
-            25% { transform: translate(-2px, 2px); opacity: 0.7; }
-            75% { transform: translate(2px, -2px); opacity: 0.7; }
-        }
-        @keyframes glitch-2 {
-            0%, 100% { transform: translate(0); opacity: 0; }
-            25% { transform: translate(2px, -2px); opacity: 0.7; }
-            75% { transform: translate(-2px, 2px); opacity: 0.7; }
-        }
-
-        /* Holographic - Simplified */
-        .holographic {
-            background: linear-gradient(135deg, rgba(15, 15, 15, 0.95), rgba(5, 5, 5, 0.95));
-        }
-
-        /* Mobile Menu Fix */
-        @media (max-width: 991px) {
-            .navbar-collapse {
-                background: var(--navbar-scrolled-bg);
-                padding: 20px;
-                border-radius: 15px;
-                margin-top: 15px;
-                border: 1px solid var(--card-border);
-            }
-            .nav-link { padding: 12px 15px !important; }
-            .nav-link::after { display: none; }
-        }
-
-        /* Light mode mobile menu & navbar fixes */
-        [data-theme="light"] .navbar-toggler {
-            border-color: var(--primary-color);
-        }
-        [data-theme="light"] .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 107, 107, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-        }
-        [data-theme="light"] .navbar-collapse {
-            background: rgba(255, 255, 255, 0.98) !important;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-        [data-theme="light"] .nav-link {
-            color: #1a1a1a !important;
-        }
-        [data-theme="light"] .nav-link:hover {
-            color: var(--primary-color) !important;
-        }
-        [data-theme="light"] .navbar.scrolled {
-            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Touch Device Optimizations */
-        @media (hover: none) {
-            .project-card, .skill-item, .testimonial-card {
-                transform: none !important;
-            }
-        }
-
-        /* Hide unused elements */
-        .morphing-background, .quantum-particles { display: none; }
-
-        /* ========== MOBILE PERFORMANCE OPTIMIZATIONS ========== */
-        @media (max-width: 768px) {
-            /* Disable expensive animations on mobile */
-            *, *::before, *::after {
-                animation-duration: 0.3s !important;
-                transition-duration: 0.2s !important;
-            }
-
-            /* Disable floating animation for better performance */
-            .hero-image-wrapper {
-                animation: none !important;
-            }
-
-            /* Disable gradient animation */
-            .hero h1, .loading-logo {
-                animation: none !important;
-                background-size: 100% 100% !important;
-            }
-
-            /* Simplify backdrop filters (expensive on mobile) */
-            .navbar, .modal-overlay {
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-            }
-            .navbar {
-                background: var(--navbar-scrolled-bg) !important;
-            }
-
-            /* Use simpler backgrounds */
-            .project-card, .testimonial-card, .skill-item {
-                background: var(--card-bg) !important;
-                box-shadow: none !important;
-            }
-
-            /* Optimize scroll animations - simpler transforms */
-            .scroll-animate,
-            .scroll-animate-left,
-            .scroll-animate-right,
-            .scroll-animate-scale {
-                opacity: 0;
-                transform: translateY(20px) !important;
-                transition: opacity 0.3s ease, transform 0.3s ease !important;
-            }
-            .scroll-animate.visible,
-            .scroll-animate-left.visible,
-            .scroll-animate-right.visible,
-            .scroll-animate-scale.visible {
-                opacity: 1;
-                transform: translateY(0) !important;
-            }
-
-            /* Disable hover effects entirely on mobile */
-            .project-card:hover,
-            .skill-item:hover,
-            .testimonial-card:hover,
-            .liquid-button:hover {
-                transform: none !important;
-                box-shadow: none !important;
-            }
-
-            /* Optimize hero profile image */
-            .hero-profile-img {
-                filter: none !important;
-            }
-
-            /* Reduce section padding for faster scroll */
-            .section {
-                padding: 50px 0 !important;
-            }
-
-            /* Simplify loading screen */
-            .loading-screen {
-                background: #000428 !important;
-            }
-            .dna-loader {
-                display: none !important;
-            }
-
-            /* Hardware acceleration hints */
-            .project-card,
-            .testimonial-card,
-            .skill-item,
-            .navbar {
-                will-change: auto !important;
-                transform: translateZ(0);
-                backface-visibility: hidden;
-            }
-
-            /* Optimize font rendering */
-            body {
-                text-rendering: optimizeSpeed;
-                -webkit-font-smoothing: antialiased;
-            }
-
-            /* Reduce box shadows */
-            .liquid-button {
-                box-shadow: 0 5px 15px rgba(255, 107, 107, 0.2) !important;
-            }
-
-            /* Simpler nav link styles */
-            .nav-link::after {
-                display: none !important;
-            }
-        }
-
-        /* Extra small devices - even more optimizations */
-        @media (max-width: 480px) {
-            /* Minimal animations */
-            .scroll-animate,
-            .scroll-animate-left,
-            .scroll-animate-right,
-            .scroll-animate-scale {
-                opacity: 1 !important;
-                transform: none !important;
-                transition: none !important;
-            }
-
-            /* Smaller images for faster loading */
-            .project-img {
-                height: 150px !important;
-            }
-
-            /* Reduce font sizes slightly */
-            .hero h1 {
-                font-size: 2.2rem !important;
-            }
-            .section-title {
-                font-size: 1.8rem !important;
-            }
-
-            /* Stack tech tags better */
-            .tech-tags {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 5px;
-            }
-            .tech-tag {
-                font-size: 0.7rem !important;
-                padding: 3px 8px !important;
-                margin: 0 !important;
-            }
-        }
-    </style>
+    <title> Fazil Qazi - Flutter Developer </title>
 </head>
 
 <body>
-    <!-- Custom Cursor -->
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
+    <!--=============== HEADER ===============-->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="#" class="nav__logo">Fazil Qazi</a>
 
-    <!-- Loading Screen with Advanced Physics -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loading-logo">Fazil Qazi</div>
-        <div class="loading-subtitle">Flutter Developer & Mobile App Specialist</div>
-        
-        <!-- DNA Loader -->
-        <div class="dna-loader">
-            <div class="dna-strand"></div>
-            <div class="dna-strand"></div>
-            <div class="dna-strand"></div>
-            <div class="dna-strand"></div>
-        </div>
-        
-        <!-- Quantum Particles -->
-        <div class="quantum-particles" id="quantumParticles"></div>
-    </div>
-
-    <!-- 3D Background Canvas -->
-    <canvas id="threejs-background"></canvas>
-    
-    <!-- Particle Background -->
-    <div id="particles-js"></div>
-    
-    <!-- Morphing Background -->
-    <div class="morphing-background"></div>
-    
-    <!-- Navigation with Glass Morphism -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNavbar">
-        <div class="container">
-            <a class="navbar-brand glitch" data-text="Fazil Qazi">Fazil Qazi</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#home">Home</a>
+            <div class="nav__menu">
+                <ul class="nav__list">
+                    <li class="nav__item ">
+                        <a href="#home" class="nav__link">
+                            <i class='bx bx-home'></i>
+                        </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
+
+                    <li class="nav__item ">
+                        <a href="#about" class="nav__link">
+                            <i class='bx bx-user'></i>
+                        </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#projects">Projects</a>
+
+                    <li class="nav__item">
+                        <a href="#skills" class="nav__link">
+                            <i class='bx bx-book'></i>
+                        </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#reviews">Reviews</a>
+
+                    <li class="nav__item">
+                        <a href="#work" class="nav__link">
+                            <i class='bx bx-briefcase-alt-2'></i>
+                        </a>
                     </li>
-                </ul>
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                    <i class="fas fa-sun"></i>
-                    <i class="fas fa-moon"></i>
-                    <span class="theme-label">Dark</span>
-                </button>
-            </div>
-        </div>
-    </nav>
 
-    <!-- Hero Section with 3D Effects -->
-    <section id="home" class="hero">
-        <!-- Floating Shapes -->
-        <div class="floating-shape"></div>
-        <div class="floating-shape"></div>
-        <div class="floating-shape"></div>
-
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <h1 class="glitch" data-text="Fazil Qazi">Fazil Qazi</h1>
-                    <p id="heroText">Senior Flutter Developer with 3+ years of experience</p>
-                    <a href="#projects" class="liquid-button">View My Work</a>
-                </div>
-                <div class="col-lg-6 text-center hero-image-col">
-                    <div class="hero-image-wrapper">
-                        <img src="images/profile.png" alt="Fazil Qazi - Flutter Developer" class="hero-profile-img">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="section section-dark">
-        <div class="container">
-            <h2 class="section-title scroll-animate">About Me</h2>
-            <div class="row justify-content-center">
-                <div class="col-lg-10 about-content scroll-animate">
-                    <h3>Flutter Developer & Mobile App Specialist</h3>
-                    <p>I'm a passionate Flutter developer with 3+ years of experience creating cross-platform mobile applications. I specialize in building scalable, user-friendly apps with modern UI/UX design principles, clean architecture, and optimal performance.</p>
-
-                    <div class="about-info">
-                        <p><strong>Name:</strong> Fazil Qazi</p>
-                        <p><strong>Experience:</strong> 3+ Years</p>
-                        <p><strong>Location:</strong> Lahore, Pakistan</p>
-                        <p><strong>Specialization:</strong> Flutter Development</p>
-                        <p><strong>Focus:</strong> Mobile App Development</p>
-                    </div>
-                    
-                    <!-- Skills -->
-                    <h4 class="mt-4 mb-3">Skills</h4>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="skill-item" data-skill="95">
-                                <div class="skill-name">
-                                    <span>Flutter</span>
-                                    <span class="skill-percentage">95%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="95"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item" data-skill="90">
-                                <div class="skill-name">
-                                    <span>Dart</span>
-                                    <span class="skill-percentage">90%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="90"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="skill-item" data-skill="85">
-                                <div class="skill-name">
-                                    <span>API Integration</span>
-                                    <span class="skill-percentage">85%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="85"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item" data-skill="80">
-                                <div class="skill-name">
-                                    <span>Firebase</span>
-                                    <span class="skill-percentage">80%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="80"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="section">
-        <div class="container">
-            <h2 class="section-title scroll-animate">My Projects</h2>
-            <div class="row">
-
-                <!-- Latest Project 1 - Pure Audio -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="project-card scroll-animate-scale">
-                        <div class="project-img" style="background-image: url('images/pure_audio.svg')"></div>
-                        <h3 class="project-title">Pure Audio</h3>
-                        <p>Premium audio streaming app with high-fidelity sound quality, offline playback, and personalized music recommendations.</p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Flutter</span>
-                            <span class="tech-tag">Dart</span>
-                            <span class="tech-tag">Audio Streaming</span>
-                            <span class="tech-tag">Firebase</span>
-                            <span class="tech-tag">SQLite</span>
-                            <span class="tech-tag">REST API</span>
-                            <span class="tech-tag">BLoC Pattern</span>
-                            <span class="tech-tag">Offline Mode</span>
-                            <span class="tech-tag">Push Notifications</span>
-                        </div>
-                        <button class="view-details-btn" data-project="Pure Audio">View Details</button>
-                    </div>
-                </div>
-
-                <!-- Latest Project 2 - Saloon App -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="project-card scroll-animate-scale">
-                        <div class="project-img" style="background-image: url('images/Saloon_app.png')"></div>
-                        <h3 class="project-title">Saloon App</h3>
-                        <p>Complete salon management solution with appointment booking, service catalog, staff scheduling, and customer loyalty programs.</p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Flutter</span>
-                            <span class="tech-tag">Dart</span>
-                            <span class="tech-tag">Firebase</span>
-                            <span class="tech-tag">Booking System</span>
-                            <span class="tech-tag">Admin Panel</span>
-                            <span class="tech-tag">Stripe Payments</span>
-                            <span class="tech-tag">Provider</span>
-                            <span class="tech-tag">Cloud Functions</span>
-                            <span class="tech-tag">FCM</span>
-                        </div>
-                        <button class="view-details-btn" data-project="Saloon App">View Details</button>
-                    </div>
-                </div>
-
-                <!-- Latest Project 3 - Success 360 -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="project-card scroll-animate-scale">
-                        <div class="project-img" style="background-image: url('images/success360.png')"></div>
-                        <h3 class="project-title">Success 360</h3>
-                        <p>Comprehensive personal development platform with goal tracking, habit building, progress analytics, and motivational content.</p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Flutter</span>
-                            <span class="tech-tag">Dart</span>
-                            <span class="tech-tag">Firebase</span>
-                            <span class="tech-tag">Analytics</span>
-                            <span class="tech-tag">Goal Tracking</span>
-                            <span class="tech-tag">Charts</span>
-                            <span class="tech-tag">GetX</span>
-                            <span class="tech-tag">Local Notifications</span>
-                            <span class="tech-tag">Hive DB</span>
-                        </div>
-                        <button class="view-details-btn" data-project="Success 360">View Details</button>
-                    </div>
-                </div>
-
-                <!-- Project 4 - FoodieExpress -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="project-card scroll-animate-scale">
-                        <div class="project-img" style="background-image: url('images/Yellow Creative Free Food Delivery Video .png')"></div>
-                        <h3 class="project-title">FoodieExpress</h3>
-                        <p>Order delicious food from the comfort of your home with our convenient food delivery app.</p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Flutter</span>
-                            <span class="tech-tag">Dart</span>
-                            <span class="tech-tag">Firebase</span>
-                            <span class="tech-tag">Google Maps</span>
-                            <span class="tech-tag">Stripe</span>
-                            <span class="tech-tag">REST API</span>
-                            <span class="tech-tag">Riverpod</span>
-                            <span class="tech-tag">Real-time Tracking</span>
-                            <span class="tech-tag">Push Notifications</span>
-                        </div>
-                        <button class="view-details-btn" data-project="FoodieExpress">View Details</button>
-                    </div>
-                </div>
-
-                <!-- Project 5 - HimaTable -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="project-card scroll-animate-scale">
-                        <div class="project-img" style="background-image: url('images/himatable.png')"></div>
-                        <h3 class="project-title">HimaTable Pro</h3>
-                        <p>Smart productivity app for effortless table creation and team collaboration with AI-powered features.</p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Flutter</span>
-                            <span class="tech-tag">Dart</span>
-                            <span class="tech-tag">AI Integration</span>
-                            <span class="tech-tag">WebSocket</span>
-                            <span class="tech-tag">Real-time Sync</span>
-                            <span class="tech-tag">Cloud Firestore</span>
-                            <span class="tech-tag">BLoC</span>
-                            <span class="tech-tag">Multi-platform</span>
-                            <span class="tech-tag">Offline First</span>
-                        </div>
-                        <button class="view-details-btn" data-project="HimaTable">View Details</button>
-                    </div>
-                </div>
-
-                <!-- Project 6 - EventMaker -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="project-card scroll-animate-scale">
-                        <div class="project-img" style="background-image: url('images/eventmaker.png')"></div>
-                        <h3 class="project-title">EventMaker</h3>
-                        <p>Smart event networking app that creates real-world meetups based on personality, hobbies, and interests matching.</p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Flutter</span>
-                            <span class="tech-tag">Dart</span>
-                            <span class="tech-tag">AI Matching</span>
-                            <span class="tech-tag">Firebase</span>
-                            <span class="tech-tag">Google Maps</span>
-                            <span class="tech-tag">Real-time Chat</span>
-                            <span class="tech-tag">Provider</span>
-                            <span class="tech-tag">Geolocation</span>
-                            <span class="tech-tag">Social Auth</span>
-                        </div>
-                        <button class="view-details-btn" data-project="EventMaker">View Details</button>
-                    </div>
-                </div>
-                
-                <!-- Project 7 - Fashion Reels -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="project-card scroll-animate-scale">
-                        <div class="project-img" style="background-image: url('images/clothing app.png')"></div>
-                        <h3 class="project-title">Fashion Reels</h3>
-                        <p>Interactive fashion marketplace featuring TikTok-style clothing reels, 3D visualization, and secure payment integration.</p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Flutter</span>
-                            <span class="tech-tag">Dart</span>
-                            <span class="tech-tag">Video Streaming</span>
-                            <span class="tech-tag">3D Effects</span>
-                            <span class="tech-tag">Firebase</span>
-                            <span class="tech-tag">Stripe</span>
-                            <span class="tech-tag">GetX</span>
-                            <span class="tech-tag">Video Player</span>
-                            <span class="tech-tag">E-commerce</span>
-                        </div>
-                        <button class="view-details-btn" data-project="Fashion Reels">View Details</button>
-                    </div>
-                </div>
-                
-                <!-- Project 8 - RentNova -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="project-card scroll-animate-scale">
-                        <div class="project-img" style="background-image: url('images/rentnova.png')"></div>
-                        <h3 class="project-title">RentNova</h3>
-                        <p>Next-generation property rental platform with dual-profile system and admin verification.</p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Flutter</span>
-                            <span class="tech-tag">Dart</span>
-                            <span class="tech-tag">Firebase</span>
-                            <span class="tech-tag">Real-time Chat</span>
-                            <span class="tech-tag">Admin Panel</span>
-                            <span class="tech-tag">Google Maps</span>
-                            <span class="tech-tag">BLoC</span>
-                            <span class="tech-tag">Cloud Storage</span>
-                            <span class="tech-tag">Document Mgmt</span>
-                        </div>
-                        <button class="view-details-btn" data-project="RentNova">View Details</button>
-                    </div>
-                </div>
-                
-                <!-- Project 9 - Moda Heaven -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="project-card scroll-animate-scale">
-                        <div class="project-img" style="background-image: url('images/moda heaven.png')"></div>
-                        <h3 class="project-title">Moda Heaven</h3>
-                        <p>Premium fashion marketplace with 3D product visualization and video reels.</p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Flutter</span>
-                            <span class="tech-tag">Dart</span>
-                            <span class="tech-tag">3D Modeling</span>
-                            <span class="tech-tag">AR Integration</span>
-                            <span class="tech-tag">Firebase</span>
-                            <span class="tech-tag">Video Reels</span>
-                            <span class="tech-tag">Provider</span>
-                            <span class="tech-tag">E-commerce</span>
-                            <span class="tech-tag">Social Shopping</span>
-                        </div>
-                        <button class="view-details-btn" data-project="Moda Heaven">View Details</button>
-                    </div>
-                </div>
-                
-                <!-- Project 10 - VisionCraft -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="project-card scroll-animate-scale">
-                        <div class="project-img" style="background-image: url('images/glasses.png')"></div>
-                        <h3 class="project-title">VisionCraft</h3>
-                        <p>Advanced eyewear e-commerce platform with virtual try-on technology.</p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Flutter</span>
-                            <span class="tech-tag">Dart</span>
-                            <span class="tech-tag">AR Technology</span>
-                            <span class="tech-tag">Camera API</span>
-                            <span class="tech-tag">Firebase</span>
-                            <span class="tech-tag">Stripe</span>
-                            <span class="tech-tag">GetX</span>
-                            <span class="tech-tag">Face Detection</span>
-                            <span class="tech-tag">E-commerce</span>
-                        </div>
-                        <button class="view-details-btn" data-project="VisionCraft">View Details</button>
-                    </div>
-                </div>
-                
-                <!-- Project 11 - SoulMatch -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="project-card scroll-animate-scale">
-                        <div class="project-img" style="background-image: url('images/FindYourPartner.png')"></div>
-                        <h3 class="project-title">SoulMatch</h3>
-                        <p>Intelligent dating platform with personality-based matching algorithms.</p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Flutter</span>
-                            <span class="tech-tag">Dart</span>
-                            <span class="tech-tag">AI Matching</span>
-                            <span class="tech-tag">Firebase</span>
-                            <span class="tech-tag">Real-time Chat</span>
-                            <span class="tech-tag">Video Calling</span>
-                            <span class="tech-tag">BLoC</span>
-                            <span class="tech-tag">WebRTC</span>
-                            <span class="tech-tag">Push Notifications</span>
-                        </div>
-                        <button class="view-details-btn" data-project="SoulMatch">View Details</button>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-    </section>
-
-    <!-- Client Reviews Section -->
-    <section id="reviews" class="section section-dark">
-        <div class="container">
-            <h2 class="section-title scroll-animate">Client Reviews</h2>
-            <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="testimonial-card scroll-animate-left">
-                        <i class="fas fa-quote-right quote-icon"></i>
-                        <div class="review-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <span>5.0</span>
-                        </div>
-                        <p class="testimonial-text">"I have an app already. They took my vision and made it even better. Their deep understanding of Flutter made the process smooth and easy. Allowing for quick turn arounds and implementation of my needs of the app. Look forward to working with them again for sure."</p>
-                        <div class="testimonial-author">
-                            <div class="author-avatar">MK</div>
-                            <div class="author-info">
-                                <h5>Maheka R.</h5>
-                                <p>App Owner</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="testimonial-card scroll-animate">
-                        <i class="fas fa-quote-right quote-icon"></i>
-                        <div class="review-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <span>5.0</span>
-                        </div>
-                        <p class="testimonial-text">"Professional at work. He can easily implement ideas. He helps a lot in matters. He completes the project on time and does not delay. He always asks you if you want to make any changes with an open heart. He has an excellent work spirit."</p>
-                        <div class="testimonial-author">
-                            <div class="author-avatar">HE</div>
-                            <div class="author-info">
-                                <h5>Hima Egypt</h5>
-                                <p>Business Owner</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="testimonial-card scroll-animate-right">
-                        <i class="fas fa-quote-right quote-icon"></i>
-                        <div class="review-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <span>5.0</span>
-                        </div>
-                        <p class="testimonial-text">"Very Professional & Responsive. Great at what he does and understanding idea concepts."</p>
-                        <div class="testimonial-author">
-                            <div class="author-avatar">AL</div>
-                            <div class="author-info">
-                                <h5>Alecia Lucas</h5>
-                                <p>Entrepreneur</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Project Modal -->
-    <div id="projectModal" class="modal-overlay">
-        <div class="modal-content">
-            <button class="modal-close">&times;</button>
-            <h2 id="modalTitle" class="modal-title">Project Title</h2>
-            <p id="modalDescription" class="modal-description">Project description will appear here...</p>
-            <div class="modal-features">
-                <h4>Key Features</h4>
-                <ul id="modalFeatures">
-                    <!-- Features will be populated by JavaScript -->
                 </ul>
             </div>
-            <div class="modal-features">
-                <h4>Technologies Used</h4>
-                <div id="modalTechStack">
-                    <!-- Tech stack will be populated by JavaScript -->
+
+            <!--=============== theme change button ===============-->
+            <i class='bx bx-moon change-theme change-theme-button' id="theme-button"></i>
+
+        </nav>
+    </header>
+
+    <!--=============== MAIN ===============-->
+    <main class="main">
+        <!--=============== HOME ===============-->
+        <section class="home section" id="home">
+            <div class="home__container container grid">
+                <div class="home__data">
+                    <span class="home__greeting">Hello, I'm</span>
+                    <h1 class="home__name">Fazil Qazi</h1>
+                    <h3 class="home__education">Flutter Developer</h3>
+
+                    <div class="home__button">
+                        <a href="#work" class="button">View Work</a>
+                        <a href="#about" class="button button--ghost">About Me</a>
+                    </div>
+                </div>
+
+                <div class="home__handle">
+                    <img src="assets/img/perfil.png" alt="" class="home__img">
+                </div>
+
+
+                <a href="#about" class="home__scroll">
+                    <i class='bx bx-mouse home__scroll-icon'></i>
+                    <span class="home__scroll-name">Scroll Down</span>
+                </a>
+            </div>
+        </section>
+
+        <!--=============== ABOUT ===============-->
+        <section class="about section" id="about">
+            <span class="section__subtitle">My Intro</span>
+            <h2 class="section__title">About Me</h2>
+
+            <div class="about__container container grid">
+                <img src="assets/img/about.png" alt="" class="about__img">
+
+                <div class="about__data">
+                    <div class="about__info">
+                        <div class="about__box">
+                            <i class='bx bx-award about__icon'></i>
+                            <h3 class="about__title">Experience</h3>
+                            <span class="about__subtitle">3+ Years Working</span>
+                        </div>
+                        <div class="about__box">
+                            <i class='bx bx-briefcase-alt about__icon'></i>
+                            <h3 class="about__title">Completed</h3>
+                            <span class="about__subtitle">20+ Projects</span>
+                        </div>
+                        <div class="about__box">
+                            <i class='bx bx-support about__icon'></i>
+                            <h3 class="about__title">Support</h3>
+                            <span class="about__subtitle">Online 24/7</span>
+                        </div>
+                    </div>
+
+                    <p class="about__description">
+                        Flutter Developer specializing in cross-platform mobile app development.
+                        I create beautiful, high-performance iOS and Android applications with clean architecture and modern UI/UX design.
+                    </p>
+
+                    <a href="#work" class="button about__button-contact">View Work</a>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
+        <!--=============== SKILLS ===============-->
+        <section class="skills section" id="skills">
+            <span class="section__subtitle">My Abilities</span>
+            <h2 class="section__title">My Experience</h2>
 
-    <script>
-        // Professional Portfolio - Optimized JavaScript
-        (function() {
-            'use strict';
+            <div class="skills__container container grid">
+                <div class="skills__content">
+                    <h3 class="skills__title">Mobile Development</h3>
 
-            // Theme Management - Initialize immediately before DOM content loads
-            function initTheme() {
-                const savedTheme = localStorage.getItem('theme');
-                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    <div class="skills__box">
+                        <div class="skills__group">
+                            <div class="skills__data">
+                                <i class='bx bxs-badge-check'></i>
 
-                // Determine initial theme
-                let theme;
-                if (savedTheme) {
-                    theme = savedTheme;
-                } else {
-                    theme = prefersDark ? 'dark' : 'light';
-                }
-
-                // Apply theme immediately
-                document.documentElement.setAttribute('data-theme', theme);
-            }
-
-            // Run immediately to prevent flash
-            initTheme();
-
-            // Check for reduced motion preference
-            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            const isMobile = window.innerWidth < 768 || 'ontouchstart' in window;
-            const isDesktop = window.innerWidth >= 992 && window.matchMedia('(hover: hover)').matches;
-
-            // MOBILE: Much faster loading - 0.4s, DESKTOP: 1.2s
-            const loadingTime = isMobile ? 400 : (prefersReducedMotion ? 300 : 1200);
-
-            // Fast loading screen
-            document.addEventListener('DOMContentLoaded', function() {
-                const loadingScreen = document.getElementById('loadingScreen');
-
-                // Hide loading screen - faster on mobile
-                setTimeout(() => {
-                    if (loadingScreen) {
-                        loadingScreen.classList.add('fade-out');
-                        setTimeout(() => {
-                            loadingScreen.style.display = 'none';
-                            initAll();
-                        }, isMobile ? 200 : 600);
-                    }
-                }, loadingTime);
-            });
-
-            function initAll() {
-                initScrollAnimations();
-                initNavbar();
-                initSkillBars();
-                initModal();
-                initTypewriter();
-                initThemeToggle();
-                initMobileMenuClose();
-
-                // Desktop-only features
-                if (isDesktop && !prefersReducedMotion) {
-                    initCursor();
-                    // Delay heavy effects
-                    setTimeout(() => {
-                        initThreeJS();
-                        initParticles();
-                    }, 500);
-                }
-            }
-
-            // Theme Toggle functionality
-            function initThemeToggle() {
-                const themeToggle = document.getElementById('themeToggle');
-                if (!themeToggle) return;
-
-                const themeLabel = themeToggle.querySelector('.theme-label');
-
-                // Update label based on current theme
-                function updateThemeLabel() {
-                    const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
-                    if (themeLabel) {
-                        themeLabel.textContent = currentTheme === 'dark' ? 'Dark Mode' : 'Light Mode';
-                    }
-                }
-
-                // Initial label update
-                updateThemeLabel();
-
-                themeToggle.addEventListener('click', () => {
-                    const currentTheme = document.documentElement.getAttribute('data-theme');
-                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-                    document.documentElement.setAttribute('data-theme', newTheme);
-                    localStorage.setItem('theme', newTheme);
-                    updateThemeLabel();
-
-                    // Close mobile menu after theme change
-                    const navbarCollapse = document.getElementById('navbarNav');
-                    if (navbarCollapse && navbarCollapse.classList.contains('show')) {
-                        const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
-                        if (bsCollapse) bsCollapse.hide();
-                    }
-                });
-
-                // Listen for system theme changes
-                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-                    // Only auto-switch if user hasn't manually set a preference
-                    if (!localStorage.getItem('theme')) {
-                        const newTheme = e.matches ? 'dark' : 'light';
-                        document.documentElement.setAttribute('data-theme', newTheme);
-                        updateThemeLabel();
-                    }
-                });
-            }
-
-            // Close mobile menu when tapping outside
-            function initMobileMenuClose() {
-                const navbarCollapse = document.getElementById('navbarNav');
-                const navbarToggler = document.querySelector('.navbar-toggler');
-
-                if (!navbarCollapse || !navbarToggler) return;
-
-                // Close menu when clicking outside
-                document.addEventListener('click', (e) => {
-                    const isMenuOpen = navbarCollapse.classList.contains('show');
-                    const clickedInsideMenu = navbarCollapse.contains(e.target);
-                    const clickedToggler = navbarToggler.contains(e.target);
-
-                    if (isMenuOpen && !clickedInsideMenu && !clickedToggler) {
-                        const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
-                        if (bsCollapse) bsCollapse.hide();
-                    }
-                });
-
-                // Close menu when clicking a nav link
-                const navLinks = navbarCollapse.querySelectorAll('.nav-link');
-                navLinks.forEach(link => {
-                    link.addEventListener('click', () => {
-                        if (navbarCollapse.classList.contains('show')) {
-                            const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
-                            if (bsCollapse) bsCollapse.hide();
-                        }
-                    });
-                });
-            }
-
-            // Smooth custom cursor
-            function initCursor() {
-                const cursor = document.querySelector('.cursor');
-                const follower = document.querySelector('.cursor-follower');
-                if (!cursor || !follower) return;
-
-                let mouseX = 0, mouseY = 0;
-                let cursorX = 0, cursorY = 0;
-                let followerX = 0, followerY = 0;
-
-                document.addEventListener('mousemove', (e) => {
-                    mouseX = e.clientX;
-                    mouseY = e.clientY;
-                });
-
-                function animate() {
-                    // Smooth interpolation
-                    cursorX += (mouseX - cursorX) * 0.2;
-                    cursorY += (mouseY - cursorY) * 0.2;
-                    followerX += (mouseX - followerX) * 0.1;
-                    followerY += (mouseY - followerY) * 0.1;
-
-                    cursor.style.left = cursorX + 'px';
-                    cursor.style.top = cursorY + 'px';
-                    follower.style.left = followerX + 'px';
-                    follower.style.top = followerY + 'px';
-
-                    requestAnimationFrame(animate);
-                }
-                animate();
-            }
-
-            // Scroll animations with IntersectionObserver - Optimized for mobile
-            function initScrollAnimations() {
-                const elements = document.querySelectorAll('.scroll-animate, .scroll-animate-left, .scroll-animate-right, .scroll-animate-scale');
-
-                // On mobile: show all elements immediately for better performance
-                if (isMobile && window.innerWidth < 480) {
-                    elements.forEach(el => el.classList.add('visible'));
-                    return;
-                }
-
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach((entry, index) => {
-                        if (entry.isIntersecting) {
-                            // Mobile: no stagger delay, Desktop: staggered
-                            const delay = isMobile ? 0 : (prefersReducedMotion ? 0 : index * 50);
-                            setTimeout(() => {
-                                entry.target.classList.add('visible');
-                            }, delay);
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, {
-                    threshold: isMobile ? 0.05 : 0.15, // Lower threshold on mobile for faster trigger
-                    rootMargin: isMobile ? '0px 0px 50px 0px' : '0px 0px -30px 0px'
-                });
-
-                elements.forEach(el => observer.observe(el));
-            }
-
-            // Navbar scroll effect - Optimized with passive listener
-            function initNavbar() {
-                const navbar = document.querySelector('.navbar');
-                if (!navbar) return;
-
-                // On mobile, navbar is always styled as scrolled
-                if (isMobile) {
-                    navbar.classList.add('scrolled');
-                    return;
-                }
-
-                let ticking = false;
-                window.addEventListener('scroll', () => {
-                    if (!ticking) {
-                        requestAnimationFrame(() => {
-                            navbar.classList.toggle('scrolled', window.scrollY > 50);
-                            ticking = false;
-                        });
-                        ticking = true;
-                    }
-                }, { passive: true });
-            }
-
-            // Skill bars animation - Optimized for mobile
-            function initSkillBars() {
-                const skillItems = document.querySelectorAll('.skill-item');
-
-                // On mobile: animate immediately without delay
-                if (isMobile) {
-                    skillItems.forEach(item => {
-                        const progressBar = item.querySelector('.skill-progress');
-                        if (progressBar) {
-                            progressBar.style.width = (progressBar.getAttribute('data-width') || 90) + '%';
-                        }
-                    });
-                    return;
-                }
-
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const progressBar = entry.target.querySelector('.skill-progress');
-                            if (progressBar) {
-                                const width = progressBar.getAttribute('data-width') || 90;
-                                setTimeout(() => {
-                                    progressBar.style.width = width + '%';
-                                }, prefersReducedMotion ? 0 : 200);
-                            }
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.3 });
-
-                skillItems.forEach(item => observer.observe(item));
-            }
-
-            // Modal functionality
-            function initModal() {
-                const modal = document.getElementById('projectModal');
-                if (!modal) return;
-
-                const projectDetails = {
-                    'Pure Audio': {
-                        description: 'Premium audio streaming application delivering high-fidelity sound quality with seamless offline playback and AI-powered personalized music recommendations.',
-                        technologies: ['Flutter', 'Dart', 'Audio Engine', 'Firebase', 'SQLite', 'REST API', 'BLoC Pattern', 'Push Notifications', 'Machine Learning', 'Background Services'],
-                        features: ['Hi-Fi Audio Streaming', 'Offline Playback', 'Personalized Playlists', 'Equalizer Controls', 'Background Playback', 'Cross-device Sync']
-                    },
-                    'Saloon App': {
-                        description: 'Complete salon management solution designed to streamline appointment booking, manage service catalogs, handle staff scheduling, and run customer loyalty programs.',
-                        technologies: ['Flutter', 'Dart', 'Firebase', 'Stripe Payments', 'Cloud Functions', 'FCM', 'Provider', 'Google Calendar API', 'REST API', 'Admin Dashboard'],
-                        features: ['Online Booking', 'Service Catalog', 'Staff Management', 'Loyalty Programs', 'Customer Reviews', 'Revenue Analytics']
-                    },
-                    'Success 360': {
-                        description: 'Comprehensive personal development platform that helps users set and track goals, build positive habits, analyze progress with detailed analytics, and stay motivated.',
-                        technologies: ['Flutter', 'Dart', 'Firebase', 'Charts & Analytics', 'Local Notifications', 'Hive DB', 'GetX', 'Shared Preferences', 'FL Charts', 'Gamification'],
-                        features: ['Goal Setting & Tracking', 'Habit Builder', 'Progress Analytics', 'Daily Motivation', 'Achievement Badges', 'Community Support']
-                    },
-                    'FoodieExpress': {
-                        description: 'A comprehensive food delivery application with real-time tracking and secure payments.',
-                        technologies: ['Flutter', 'Dart', 'Firebase', 'Stripe', 'Google Maps', 'REST API', 'Riverpod', 'Real-time Tracking', 'Push Notifications', 'Geolocation'],
-                        features: ['Real-time Tracking', 'Multiple Payments', 'Restaurant Management', 'User Reviews']
-                    },
-                    'HimaTable': {
-                        description: 'Smart productivity app for table creation and team collaboration with AI features.',
-                        technologies: ['Flutter', 'Dart', 'AI Integration', 'WebSocket', 'Real-time Sync', 'Cloud Firestore', 'BLoC', 'Multi-platform', 'Offline First', 'Excel Export'],
-                        features: ['AI-powered Tables', 'Team Collaboration', 'Multi-language Support', 'Cloud Sync']
-                    },
-                    'EventMaker': {
-                        description: 'Smart event networking app that creates real-world meetups based on interests.',
-                        technologies: ['Flutter', 'Dart', 'AI Matching', 'Firebase', 'Google Maps', 'Real-time Chat', 'Provider', 'Geolocation', 'Social Auth', 'Calendar Integration'],
-                        features: ['Interest Matching', 'Event Creation', 'Social Networking', 'Location Services']
-                    },
-                    'Fashion Reels': {
-                        description: 'Interactive fashion marketplace with TikTok-style reels and 3D visualization.',
-                        technologies: ['Flutter', 'Dart', 'Video Streaming', '3D Effects', 'Firebase', 'Stripe', 'GetX', 'Video Player', 'E-commerce', 'Social Features'],
-                        features: ['Fashion Reels', '3D Visualization', 'Social Features', 'Secure Payments']
-                    },
-                    'RentNova': {
-                        description: 'Next-generation property rental platform with dual-profile system.',
-                        technologies: ['Flutter', 'Dart', 'Firebase', 'Real-time Chat', 'Admin Panel', 'Google Maps', 'BLoC', 'Cloud Storage', 'Document Management', 'Search Filters'],
-                        features: ['Dual Profiles', 'Property Search', 'Real-time Chat', 'Document Management']
-                    },
-                    'Moda Heaven': {
-                        description: 'Premium fashion marketplace with 3D product visualization.',
-                        technologies: ['Flutter', 'Dart', '3D Modeling', 'AR Integration', 'Firebase', 'Video Reels', 'Provider', 'E-commerce', 'Social Shopping', 'Wishlist'],
-                        features: ['3D Products', 'Virtual Try-on', 'Fashion Reels', 'Social Shopping']
-                    },
-                    'VisionCraft': {
-                        description: 'Advanced eyewear e-commerce platform with virtual try-on technology.',
-                        technologies: ['Flutter', 'Dart', 'AR Technology', 'Camera API', 'Firebase', 'Stripe', 'GetX', 'Face Detection', 'E-commerce', 'ML Kit'],
-                        features: ['Virtual Try-on', 'Prescription Management', 'Product Customization', 'Expert Consultation']
-                    },
-                    'SoulMatch': {
-                        description: 'Intelligent dating platform with personality-based matching algorithms.',
-                        technologies: ['Flutter', 'Dart', 'AI Matching', 'Firebase', 'Real-time Chat', 'Video Calling', 'BLoC', 'WebRTC', 'Push Notifications', 'Profile Verification'],
-                        features: ['AI Matching', 'Personality Analysis', 'Secure Messaging', 'Video Dates']
-                    }
-                };
-
-                document.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('view-details-btn')) {
-                        e.preventDefault();
-                        const title = e.target.getAttribute('data-project');
-                        const project = projectDetails[title] || {
-                            description: 'Amazing Flutter application with modern features.',
-                            technologies: ['Flutter', 'Dart', 'Firebase'],
-                            features: ['Modern UI', 'Responsive Design', 'Cross-platform']
-                        };
-
-                        const content = modal.querySelector('.modal-content');
-                        content.innerHTML = `
-                            <button class="modal-close">&times;</button>
-                            <h3>${title}</h3>
-                            <p>${project.description}</p>
-                            <h4>Technologies Used:</h4>
-                            <div class="tech-tags">
-                                ${project.technologies.map(t => `<span class="tech-tag">${t}</span>`).join('')}
+                                <div>
+                                    <h3 class="skills__name">Flutter</h3>
+                                    <span class="skills__level">Advanced</span>
+                                </div>
                             </div>
-                            <h4>Key Features:</h4>
-                            <ul>${project.features.map(f => `<li>${f}</li>`).join('')}</ul>
-                        `;
 
-                        modal.style.display = 'flex';
-                        requestAnimationFrame(() => modal.classList.add('show'));
-                        document.body.style.overflow = 'hidden';
-                    }
+                            <div class="skills__data">
+                                <i class='bx bxs-badge-check'></i>
 
-                    if (e.target.classList.contains('modal-close') || e.target === modal) {
-                        modal.classList.remove('show');
-                        setTimeout(() => {
-                            modal.style.display = 'none';
-                            document.body.style.overflow = '';
-                        }, 300);
-                    }
-                });
+                                <div>
+                                    <h3 class="skills__name">Dart</h3>
+                                    <span class="skills__level">Advanced</span>
+                                </div>
+                            </div>
 
-                // Close on escape
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && modal.classList.contains('show')) {
-                        modal.classList.remove('show');
-                        setTimeout(() => {
-                            modal.style.display = 'none';
-                            document.body.style.overflow = '';
-                        }, 300);
-                    }
-                });
-            }
+                            <div class="skills__data">
+                                <i class='bx bxs-badge-check'></i>
 
-            // Typewriter effect - Disabled on mobile for faster load
-            function initTypewriter() {
-                const element = document.getElementById('heroText');
-                if (!element) return;
+                                <div>
+                                    <h3 class="skills__name">State Management</h3>
+                                    <span class="skills__level">Advanced</span>
+                                </div>
+                            </div>
 
-                const text = "Senior Flutter Developer with 3+ years of experience";
+                        </div>
+                        <div class="skills__group">
+                            <div class="skills__data">
+                                <i class='bx bxs-badge-check'></i>
 
-                // Skip typewriter on mobile for instant display
-                if (prefersReducedMotion || isMobile) {
-                    element.textContent = text;
-                    return;
-                }
+                                <div>
+                                    <h3 class="skills__name">REST APIs</h3>
+                                    <span class="skills__level">Advanced</span>
+                                </div>
+                            </div>
 
-                element.textContent = '';
-                element.classList.add('typing');
-                let i = 0;
+                            <div class="skills__data">
+                                <i class='bx bxs-badge-check'></i>
 
-                function type() {
-                    if (i < text.length) {
-                        element.textContent += text.charAt(i);
-                        i++;
-                        setTimeout(type, 40);
-                    } else {
-                        element.classList.remove('typing');
-                        element.classList.add('typing-complete');
-                    }
-                }
+                                <div>
+                                    <h3 class="skills__name">Git</h3>
+                                    <span class="skills__level">Advanced</span>
+                                </div>
+                            </div>
 
-                setTimeout(type, 500);
-            }
+                            <div class="skills__data">
+                                <i class='bx bxs-badge-check'></i>
 
-            // Three.js background - Lightweight version
-            function initThreeJS() {
-                if (isMobile || !window.THREE) return;
+                                <div>
+                                    <h3 class="skills__name">UI/UX Design</h3>
+                                    <span class="skills__level">Advanced</span>
+                                </div>
+                            </div>
 
-                try {
-                    const container = document.getElementById('threejs-background');
-                    if (!container) return;
+                        </div>
+                    </div>
+                </div>
 
-                    const scene = new THREE.Scene();
-                    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-                    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: false });
+                <div class="skills__content">
+                    <h3 class="skills__title">Backend & Tools</h3>
 
-                    renderer.setSize(window.innerWidth, window.innerHeight);
-                    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-                    container.appendChild(renderer.domElement);
+                    <div class="skills__box">
+                        <div class="skills__group">
+                            <div class="skills__data">
+                                <i class='bx bxs-badge-check'></i>
 
-                    // Fewer, simpler spheres
-                    const geometry = new THREE.IcosahedronGeometry(1, 1);
-                    const material = new THREE.MeshBasicMaterial({
-                        color: 0xff6b6b,
-                        wireframe: true,
-                        transparent: true,
-                        opacity: 0.15
-                    });
+                                <div>
+                                    <h3 class="skills__name">Firebase</h3>
+                                    <span class="skills__level">Advanced</span>
+                                </div>
+                            </div>
 
-                    const spheres = [];
-                    for (let i = 0; i < 5; i++) {
-                        const sphere = new THREE.Mesh(geometry, material);
-                        sphere.position.set(
-                            (Math.random() - 0.5) * 30,
-                            (Math.random() - 0.5) * 30,
-                            (Math.random() - 0.5) * 20 - 10
-                        );
-                        sphere.scale.setScalar(Math.random() * 1.5 + 0.5);
-                        scene.add(sphere);
-                        spheres.push(sphere);
-                    }
+                            <div class="skills__data">
+                                <i class='bx bxs-badge-check'></i>
 
-                    camera.position.z = 15;
+                                <div>
+                                    <h3 class="skills__name">SQLite</h3>
+                                    <span class="skills__level">Advanced</span>
+                                </div>
+                            </div>
 
-                    let animationId;
-                    function animate() {
-                        animationId = requestAnimationFrame(animate);
-                        spheres.forEach(s => {
-                            s.rotation.x += 0.002;
-                            s.rotation.y += 0.003;
-                        });
-                        renderer.render(scene, camera);
-                    }
-                    animate();
+                            <div class="skills__data">
+                                <i class='bx bxs-badge-check'></i>
 
-                    // Throttled resize
-                    let resizeTimeout;
-                    window.addEventListener('resize', () => {
-                        clearTimeout(resizeTimeout);
-                        resizeTimeout = setTimeout(() => {
-                            camera.aspect = window.innerWidth / window.innerHeight;
-                            camera.updateProjectionMatrix();
-                            renderer.setSize(window.innerWidth, window.innerHeight);
-                        }, 200);
-                    });
+                                <div>
+                                    <h3 class="skills__name">Cloud Functions</h3>
+                                    <span class="skills__level">Intermediate</span>
+                                </div>
+                            </div>
 
-                    // Stop animation when not visible
-                    document.addEventListener('visibilitychange', () => {
-                        if (document.hidden) {
-                            cancelAnimationFrame(animationId);
-                        } else {
-                            animate();
-                        }
-                    });
+                        </div>
+                        <div class="skills__group">
+                            <div class="skills__data">
+                                <i class='bx bxs-badge-check'></i>
 
-                } catch (e) {
-                    console.log('Three.js skipped');
-                }
-            }
+                                <div>
+                                    <h3 class="skills__name">Push Notifications</h3>
+                                    <span class="skills__level">Advanced</span>
+                                </div>
+                            </div>
 
-            // Particles - Lightweight config
-            function initParticles() {
-                if (isMobile || !window.particlesJS) return;
+                            <div class="skills__data">
+                                <i class='bx bxs-badge-check'></i>
 
-                try {
-                    particlesJS('particles-js', {
-                        particles: {
-                            number: { value: 20 },
-                            color: { value: "#ff6b6b" },
-                            shape: { type: "circle" },
-                            opacity: { value: 0.3 },
-                            size: { value: 2 },
-                            line_linked: {
-                                enable: true,
-                                distance: 150,
-                                color: "#4ecdc4",
-                                opacity: 0.2,
-                                width: 1
-                            },
-                            move: {
-                                enable: true,
-                                speed: 0.5,
-                                direction: "none",
-                                out_mode: "out"
-                            }
-                        },
-                        interactivity: {
-                            detect_on: "canvas",
-                            events: {
-                                onhover: { enable: false },
-                                onclick: { enable: false },
-                                resize: true
-                            }
-                        },
-                        retina_detect: false
-                    });
-                } catch (e) {
-                    console.log('Particles skipped');
-                }
-            }
+                                <div>
+                                    <h3 class="skills__name">App Store Deploy</h3>
+                                    <span class="skills__level">Advanced</span>
+                                </div>
+                            </div>
 
-        })();
-    </script>
+                            <div class="skills__data">
+                                <i class='bx bxs-badge-check'></i>
+
+                                <div>
+                                    <h3 class="skills__name">Play Store Deploy</h3>
+                                    <span class="skills__level">Advanced</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+        </section>
+
+        <!--=============== SERVICES ===============-->
+        <section class="services section">
+            <span class="section__subtitle">My Services</span>
+            <h2 class="section__title">What I Offer</h2>
+
+            <div class="services__container container grid">
+                <div class="services__card">
+                    <div class="serv">
+                        <h3 class="services__title">Flutter App <br> Development</h3>
+
+                        <span class="services__button">
+                            See More <i class='bx bx-right-arrow services__icon'></i>
+                        </span>
+                    </div>
+
+
+                    <div class="services__modal">
+                        <div class="services__modal-content">
+                            <i class='bx bx-x services__modal-close'></i>
+
+                            <h3 class="services__modal-title">Flutter App Development</h3>
+
+                            <p class="services__modal-description">
+                                I build high-quality cross-platform mobile applications using Flutter,
+                                delivering native performance on both iOS and Android from a single codebase.
+                            </p>
+
+                            <ul class="services__modal-list">
+                                <li class="services__modal-item">
+                                    <i class='bx bx-check-circle'></i>
+                                    <p class="services__modal-info">
+                                        Cross-platform iOS & Android apps.
+                                    </p>
+                                </li>
+
+                                <li class="services__modal-item">
+                                    <i class='bx bx-check-circle'></i>
+                                    <p class="services__modal-info">
+                                        Clean architecture & state management.
+                                    </p>
+                                </li>
+
+                                <li class="services__modal-item">
+                                    <i class='bx bx-check-circle'></i>
+                                    <p class="services__modal-info">
+                                        REST API & Firebase integration.
+                                    </p>
+                                </li>
+
+                                <li class="services__modal-item">
+                                    <i class='bx bx-check-circle'></i>
+                                    <p class="services__modal-info">
+                                        Push notifications & real-time features.
+                                    </p>
+                                </li>
+
+                                <li class="services__modal-item">
+                                    <i class='bx bx-check-circle'></i>
+                                    <p class="services__modal-info">
+                                        App Store & Play Store deployment.
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="services__card">
+                    <h3 class="services__title">UI/UX <br> Design</h3>
+
+                    <span class="services__button">
+                        See More <i class='bx bx-right-arrow services__icon'></i>
+                    </span>
+
+                    <div class="services__modal">
+                        <div class="services__modal-content">
+                            <i class='bx bx-x services__modal-close'></i>
+
+                            <h3 class="services__modal-title">UI/UX Design</h3>
+
+                            <p class="services__modal-description">
+                                I create beautiful, intuitive user interfaces with modern design principles
+                                that enhance user experience and engagement.
+                            </p>
+
+                            <ul class="services__modal-list">
+                                <li class="services__modal-item">
+                                    <i class='bx bx-check-circle'></i>
+                                    <p class="services__modal-info">
+                                        Modern & responsive UI design.
+                                    </p>
+                                </li>
+
+                                <li class="services__modal-item">
+                                    <i class='bx bx-check-circle'></i>
+                                    <p class="services__modal-info">
+                                        Custom animations & transitions.
+                                    </p>
+                                </li>
+
+                                <li class="services__modal-item">
+                                    <i class='bx bx-check-circle'></i>
+                                    <p class="services__modal-info">
+                                        Material Design & Cupertino widgets.
+                                    </p>
+                                </li>
+
+                                <li class="services__modal-item">
+                                    <i class='bx bx-check-circle'></i>
+                                    <p class="services__modal-info">
+                                        Dark mode & theme customization.
+                                    </p>
+                                </li>
+
+                                <li class="services__modal-item">
+                                    <i class='bx bx-check-circle'></i>
+                                    <p class="services__modal-info">
+                                        Pixel-perfect implementation.
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="services__card">
+                    <h3 class="services__title">Backend <br> Integration</h3>
+
+                    <span class="services__button">
+                        See More <i class='bx bx-right-arrow services__icon'></i>
+                    </span>
+
+                    <div class="services__modal">
+                        <div class="services__modal-content">
+                            <i class='bx bx-x services__modal-close'></i>
+
+                            <h3 class="services__modal-title">Backend Integration</h3>
+
+                            <p class="services__modal-description">
+                                I integrate robust backend services and APIs to power your mobile applications
+                                with real-time data and cloud functionality.
+                            </p>
+
+                            <ul class="services__modal-list">
+                                <li class="services__modal-item">
+                                    <i class='bx bx-check-circle'></i>
+                                    <p class="services__modal-info">
+                                        Firebase & Cloud Firestore.
+                                    </p>
+                                </li>
+
+                                <li class="services__modal-item">
+                                    <i class='bx bx-check-circle'></i>
+                                    <p class="services__modal-info">
+                                        RESTful API integration.
+                                    </p>
+                                </li>
+
+                                <li class="services__modal-item">
+                                    <i class='bx bx-check-circle'></i>
+                                    <p class="services__modal-info">
+                                        Authentication & user management.
+                                    </p>
+                                </li>
+
+                                <li class="services__modal-item">
+                                    <i class='bx bx-check-circle'></i>
+                                    <p class="services__modal-info">
+                                        Cloud storage & file handling.
+                                    </p>
+                                </li>
+
+                                <li class="services__modal-item">
+                                    <i class='bx bx-check-circle'></i>
+                                    <p class="services__modal-info">
+                                        Payment gateway integration.
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--=============== WORK ===============-->
+        <section class="work section" id="work">
+            <span class="section__subtitle">My Portfolio</span>
+            <h2 class="section__title">Recent Works</h2>
+
+            <div class="work__filters">
+                <span class="work__item active-work" data-filter='all'>All</span>
+                <span class=" work__item" data-filter='.ios'>iOS</span>
+                <span class=" work__item" data-filter='.android'>Android</span>
+            </div>
+
+            <div class="work__container container grid">
+                <div class="work__card mix ios android">
+                    <img src="assets/img/success360.png" alt="Success360 App" class="work__img">
+
+                    <h3 class="work__title">Success360</h3>
+
+                    <a href="https://apps.apple.com/pk/app/success360/id6754213328" target="_blank" class="work__button">
+                        App Store <i class='bx bxl-apple work__icon'></i>
+                    </a>
+                </div>
+
+                <div class="work__card mix ios android">
+                    <img src="assets/img/ott.png" alt="Our Time Together App" class="work__img">
+
+                    <h3 class="work__title">Our Time Together</h3>
+
+                    <div class="work__links">
+                        <a href="https://apps.apple.com/us/app/our-time-together/id1633279048" target="_blank" class="work__button">
+                            App Store <i class='bx bxl-apple work__icon'></i>
+                        </a>
+                        <a href="https://play.google.com/store/apps/details?id=com.MJA.ott" target="_blank" class="work__button">
+                            Play Store <i class='bx bxl-play-store work__icon'></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="work__card mix android">
+                    <img src="assets/img/pure_audio.svg" alt="Pure HD Audio App" class="work__img">
+
+                    <h3 class="work__title">Pure HD Audio</h3>
+
+                    <a href="https://play.google.com/store/apps/details?id=com.silentsystem.pureaudiohd" target="_blank" class="work__button">
+                        Play Store <i class='bx bxl-play-store work__icon'></i>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!--=============== TESTIMONIALS ===============-->
+        <section class="testimonial section">
+            <span class="section__subtitle">My clients say</span>
+            <h2 class="section__title">Testimonials</h2>
+
+            <div class="testimonial__container container swiper">
+                <div class="swiper-wrapper">
+                    <div class="testimonial__card swiper-slide">
+                        <img src="assets/img/avatar.svg" alt="" class="testimonial__img">
+
+                        <h3 class="testimonial__name">mahekaruhitokui</h3>
+                        <p class="testimonial__description">
+                            They took my vision and made it even better. Their deep understanding of Flutter made the process smooth and easy. Look forward to working with them again for sure.
+                        </p>
+                    </div>
+
+                    <div class="testimonial__card swiper-slide">
+                        <img src="assets/img/avatar.svg" alt="" class="testimonial__img">
+
+                        <h3 class="testimonial__name">Hima</h3>
+                        <p class="testimonial__description">
+                            Professional at work. He can easily implement ideas. He completes the project on time and does not delay. He always asks if you want to make any changes with an open heart. Excellent work spirit.
+                        </p>
+                    </div>
+
+                    <div class="testimonial__card swiper-slide">
+                        <img src="assets/img/avatar.svg" alt="" class="testimonial__img">
+
+                        <h3 class="testimonial__name">alecialucas</h3>
+                        <p class="testimonial__description">
+                            Very Professional & Responsive. Great at what he does and understanding idea concepts.
+                        </p>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!--=============== FOOTER ===============-->
+    <footer class="footer">
+        <div class="footer__container container">
+            <h1 class="footer__title">Fazil Qazi</h1>
+
+            <ul class="footer__list">
+
+                <li class="footer__item">
+                    <a href="#" class="footer__link">Home</a>
+                </li>
+                <li class="footer__item">
+                    <a href="#about" class="footer__link">About</a>
+                </li>
+                <li class="footer__item">
+                    <a href="#skills" class="footer__link">Skills</a>
+                </li>
+                <li class="footer__item">
+                    <a href="#work" class="footer__link">Work</a>
+                </li>
+            </ul>
+
+
+            <span class="footer__copy">
+                &#169; 2025 Fazil Qazi. All rights reserved.
+            </span>
+        </div>
+    </footer>
+
+    <!--=============== SCROLLREVEAL ===============-->
+
+    <!-- <script src="assets/js/scrollreveal.min.js"></script> -->
+    <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
+
+    <!--=============== SWIPER JS ===============-->
+    <script src="assets/js/swiper-bundle.min.js"></script>
+
+    <!--=============== MIXITUP FILTER ===============-->
+    <script src="assets/js/mixitup.min.js"></script>
+
+    <!--=============== MAIN JS ===============-->
+    <script src="assets/js/main.js"></script>
 </body>
+
 </html>
