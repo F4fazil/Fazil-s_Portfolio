@@ -6,11 +6,12 @@ const About = () => {
       <div className="about-me">
         <h3 className="title">About Me</h3>
         <p className="para">
-          Full Stack Developer with 4+ years of experience building scalable web
-          applications using React.js, Angular, Next.js, Node.js, and NestJS. Skilled
-          in microservices architecture, CMS development, and low-code platforms.
-          Passionate about creating high-performance, production-ready solutions
-          from concept to deployment.
+          Flutter Developer with 4+ years of expertise building scalable, high-performance
+          mobile apps for iOS & Android — including 3 live published apps on the App Store
+          and Google Play. Proven in remote collaboration across time zones, AI-powered
+          feature integration, complex REST API implementations, and full project lifecycle
+          ownership. Adept with modern state management, Firebase backends, and cross-platform
+          architecture.
         </p>
       </div>
     </div>

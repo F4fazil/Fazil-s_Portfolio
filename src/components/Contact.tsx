@@ -5,56 +5,49 @@ const Contact = () => {
   return (
     <div className="contact-section section-container" id="contact">
       <div className="contact-container">
-        <h3>Contact</h3>
+        <h3>Published Apps</h3>
         <div className="contact-flex">
           <div className="contact-box">
-            <h4>Email</h4>
-            <p>
-              <a href="mailto:rajeshchittyal21@gmail.com" data-cursor="disable">
-                rajeshchittyal21@gmail.com
-              </a>
-            </p>
-            <h4>Education</h4>
-            <p>BSc in Computer Science</p>
+            <h4>App Store</h4>
+            <a
+              href="https://apps.apple.com/pk/app/success360/id6754213328"
+              target="_blank"
+              data-cursor="disable"
+              className="contact-social"
+            >
+              Success360 <MdArrowOutward />
+            </a>
+            <a
+              href="https://apps.apple.com/us/app/our-time-together/id1633279048"
+              target="_blank"
+              data-cursor="disable"
+              className="contact-social"
+            >
+              Our Time Together <MdArrowOutward />
+            </a>
           </div>
           <div className="contact-box">
-            <h4>Social</h4>
+            <h4>Play Store</h4>
             <a
-              href="https://github.com/raxx21"
+              href="https://play.google.com/store/apps/details?id=com.MJA.ott"
               target="_blank"
               data-cursor="disable"
               className="contact-social"
             >
-              Github <MdArrowOutward />
+              Our Time Together <MdArrowOutward />
             </a>
             <a
-              href="https://www.linkedin.com/in/rajesh-chityal-2a70141b3"
+              href="https://play.google.com/store/apps/details?id=com.silentsystem.pureaudiohd"
               target="_blank"
               data-cursor="disable"
               className="contact-social"
             >
-              Linkedin <MdArrowOutward />
-            </a>
-            <a
-              href="https://x.com/raxx21_official"
-              target="_blank"
-              data-cursor="disable"
-              className="contact-social"
-            >
-              Twitter <MdArrowOutward />
-            </a>
-            <a
-              href="https://www.instagram.com/therajeshchityal"
-              target="_blank"
-              data-cursor="disable"
-              className="contact-social"
-            >
-              Instagram <MdArrowOutward />
+              Pure HD Audio - 1K+ DL <MdArrowOutward />
             </a>
           </div>
           <div className="contact-box">
             <h2>
-              Designed and Developed <br /> by <span>Rajesh Chityal</span>
+              Flutter Developer <br /> <span>Fazil Qazi</span>
             </h2>
             <h5>
               <MdCopyright /> 2025

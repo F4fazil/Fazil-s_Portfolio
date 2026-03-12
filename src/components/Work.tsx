@@ -5,34 +5,36 @@ import { MdArrowBack, MdArrowForward } from "react-icons/md";
 
 const projects = [
   {
-    title: "Solid Starters",
-    category: "Low-Code Platform",
-    tools: "Angular, Next.js, NestJS, MongoDB",
-    image: "/images/Solidx.png",
+    title: "Success360",
+    category: "AI Life Management Platform",
+    tools: "Flutter, Google AI, Firebase, Finnhub API",
+    image: "/images/success360.png",
+    link: "https://apps.apple.com/pk/app/success360/id6754213328",
+    store: "App Store",
   },
   {
-    title: "Radix",
-    category: "E-Commerce",
-    tools: "Angular, Next.js, NestJS, CMS",
-    image: "/images/radix.png",
+    title: "Our Time Together",
+    category: "Relationship & Memories App",
+    tools: "Flutter, Firebase, Cross-platform",
+    image: "/images/ott.png",
+    link: "https://apps.apple.com/us/app/our-time-together/id1633279048",
+    store: "App Store & Play Store",
   },
   {
-    title: "Bond Cancellation",
-    category: "Import-Export Automation",
-    tools: "Angular, Next.js, NestJS, Workflows",
-    image: "/images/bond.png",
+    title: "Pure HD Audio",
+    category: "Professional Equalizer",
+    tools: "Flutter, Audio Processing, Bluetooth",
+    image: "/images/pure_audio.png",
+    link: "https://play.google.com/store/apps/details?id=com.silentsystem.pureaudiohd",
+    store: "Play Store • 1K+ Downloads",
   },
   {
-    title: "Sapphire",
-    category: "CRM Platform",
-    tools: "AngularJS, NestJS, PostgreSQL",
-    image: "/images/sapphire.png",
-  },
-  {
-    title: "Mpro",
-    category: "Insurance Platform",
-    tools: "React.js, Node.js, Microservices",
-    image: "/images/Maxlife.png",
+    title: "Event Matchmaking",
+    category: "Team & Event Organizer",
+    tools: "Flutter, Firebase, Real-time Matching",
+    image: "/images/matchmaking.png",
+    link: "#",
+    store: "In Development",
   },
 ];
 
@@ -107,6 +109,15 @@ const Work = () => {
                         <h4>{project.title}</h4>
                         <p className="carousel-category">
                           {project.category}
+                        </p>
+                        <p className="carousel-store">
+                          {project.link !== "#" ? (
+                            <a href={project.link} target="_blank" rel="noopener noreferrer" data-cursor="disable">
+                              {project.store} ↗
+                            </a>
+                          ) : (
+                            <span>{project.store}</span>
+                          )}
                         </p>
                         <div className="carousel-tools">
                           <span className="tools-label">Tools & Features</span>

@@ -9,9 +9,9 @@ const App = () => {
   return (
     <>
       <LoadingProvider>
-        <Suspense>
+        <Suspense fallback={null}>
           <MainContainer>
-            <Suspense>
+            <Suspense fallback={null}>
               <CharacterModel />
             </Suspense>
           </MainContainer>
