@@ -176,7 +176,8 @@ body.light-theme {
 .light-theme .work__card,
 .light-theme .testimonial__card,
 .light-theme .contact__card,
-.light-theme .contact__form-div {
+.light-theme .contact__form-div,
+.light-theme .process__card {
   box-shadow: 0 2px 16px hsla(var(--second-hue), 48%, 8%, 0.1);
 }
 
@@ -306,10 +307,18 @@ body.light-theme {
   text-align: center;
 }
 
-.home__greeting,
+.home__greeting {
+  font-size: var(--small-font-size);
+  font-weight: var(--font-medium);
+}
+
 .home__education {
   font-size: var(--small-font-size);
   font-weight: var(--font-medium);
+  line-height: 1.6;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .home__greeting {
@@ -528,6 +537,7 @@ body.light-theme {
 
 .skills__level {
   font-size: var(--small-font-size);
+  display: none;
 }
 
 /*=============== SERVICES ===============*/
@@ -535,6 +545,9 @@ body.light-theme {
   grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
   padding-top: 1rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .services__card {
@@ -638,6 +651,37 @@ body.light-theme {
   opacity: 1;
 }
 
+/*=============== PROCESS / HOW I WORK ===============*/
+.process__container {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  padding-top: 1rem;
+}
+
+.process__card {
+  background-color: var(--container-color);
+  padding: 1.5rem;
+  border-radius: 1.25rem;
+  text-align: center;
+}
+
+.process__number {
+  font-size: var(--h1-font-size);
+  font-weight: var(--font-semibold);
+  color: var(--first-color);
+  margin-bottom: 0.5rem;
+}
+
+.process__title {
+  font-size: var(--h3-font-size);
+  margin-bottom: 0.5rem;
+}
+
+.process__description {
+  font-size: var(--small-font-size);
+  color: var(--text-color);
+}
+
 /*=============== WORK ===============*/
 
 .work__container {
@@ -664,6 +708,7 @@ body.light-theme {
   background-color: var(--container-color);
   padding: 1rem;
   border-radius: 1rem;
+  overflow: hidden;
 }
 
 .work__img {
@@ -675,6 +720,29 @@ body.light-theme {
   font-size: var(--normal-font-size);
   font-weight: var(--font-medium);
   margin-bottom: 0.25rem;
+}
+
+.work__description {
+  font-size: var(--smaller-font-size);
+  color: var(--text-color);
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+.work__details {
+  margin-bottom: 0.75rem;
+}
+
+.work__detail-item {
+  font-size: var(--smaller-font-size);
+  color: var(--text-color);
+  line-height: 1.5;
+  margin-bottom: 0.35rem;
+}
+
+.work__detail-item strong {
+  color: var(--first-color);
+  font-weight: var(--font-medium);
 }
 
 .work__button {
@@ -712,6 +780,8 @@ body.light-theme {
 
 .testimonial__img {
   width: 60px;
+  height: 60px;
+  object-fit: cover;
   border-radius: 3rem;
   margin-bottom: 1rem;
 }
@@ -720,6 +790,13 @@ body.light-theme {
   font-size: var(--normal-font-size);
   font-weight: var(--font-medium);
   margin-bottom: 0.25rem;
+}
+
+.testimonial__source {
+  font-size: var(--smaller-font-size);
+  color: var(--text-color-light);
+  display: block;
+  margin-bottom: 0.5rem;
 }
 
 .testimonial__description {
@@ -947,8 +1024,12 @@ body.light-theme {
   }
 
   .services__container {
-    grid-template-columns: 145px;
+    grid-template-columns: 1fr;
     justify-content: center;
+  }
+
+  .process__container {
+    grid-template-columns: 1fr;
   }
 
   .work__item {
@@ -963,11 +1044,14 @@ body.light-theme {
 @media screen and (min-width: 435px) {
   .work__container {
     justify-content: center;
-    grid-template-columns: repeat(2, max-content);
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .work__img {
-    width: 165px;
+    width: 100%;
   }
 }
 
@@ -1013,7 +1097,7 @@ body.light-theme {
   }
 
   .services__container {
-    grid-template-columns: repeat(3, 177px);
+    grid-template-columns: repeat(2, 250px);
     justify-content: center;
   }
 
@@ -1028,11 +1112,14 @@ body.light-theme {
 
   .work__container {
     justify-content: center;
-    grid-template-columns: repeat(2, max-content);
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .work__img {
-    width: 250px;
+    width: 100%;
   }
 
   .testimonial__container {
@@ -1160,7 +1247,7 @@ body.light-theme {
   }
 
   .services__container {
-    grid-template-columns: repeat(3, 300px);
+    grid-template-columns: repeat(2, 300px);
     column-gap: 2rem;
   }
 
@@ -1169,8 +1256,9 @@ body.light-theme {
   }
 
   .work__container {
-    grid-template-columns: repeat(3, max-content);
-    gap: 3rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 968px;
   }
 
   .work__card {

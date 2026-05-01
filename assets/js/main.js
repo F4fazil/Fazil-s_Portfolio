@@ -197,6 +197,14 @@ sr.reveal(`.services__title, services__button`, {
   distance: "30px",
 });
 
+sr.reveal(`.process__card`, {
+  delay: 100,
+  scale: 0.9,
+  origin: "bottom",
+  distance: "30px",
+  interval: 150,
+});
+
 sr.reveal(`.work__card`, {
   delay: 100,
   scale: 0.9,
