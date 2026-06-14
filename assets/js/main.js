@@ -7,15 +7,64 @@ function scrollHeader() {
 }
 window.addEventListener("scroll", scrollHeader);
 
+/*=============== HERO TYPEWRITER ===============*/
+function typeWriter(element, text, speed, callback) {
+  if (!element || !text) {
+    if (callback) callback();
+    return;
+  }
+
+  element.style.minHeight = `${element.offsetHeight}px`;
+  element.textContent = "";
+  element.classList.add("typing-active");
+
+  let index = 0;
+
+  function writeCharacter() {
+    element.textContent = text.slice(0, index);
+    index += 1;
+
+    if (index <= text.length) {
+      setTimeout(writeCharacter, speed);
+    } else {
+      element.classList.remove("typing-active");
+      if (callback) callback();
+    }
+  }
+
+  writeCharacter();
+}
+
+window.addEventListener("load", () => {
+  const heroName = document.querySelector(".home__name");
+  const heroEducation = document.querySelector(".home__education");
+
+  const nameText = heroName ? heroName.textContent.trim() : "";
+  const educationText = heroEducation ? heroEducation.innerText.trim() : "";
+
+  typeWriter(heroName, nameText, 35, () => {
+    typeWriter(heroEducation, educationText, 10);
+  });
+});
+
 /*=============== SERVICES MODAL ===============*/
 // Get the modal
 const modalViews = document.querySelectorAll(".services__modal"),
   modalBtns = document.querySelectorAll(".services__button"),
   modalClose = document.querySelectorAll(".services__modal-close");
 
+function closeModal() {
+  modalViews.forEach((mv) => {
+    mv.classList.remove("active-modal");
+  });
+  document.body.classList.remove("modal-open");
+}
+
 // When the user clicks on the button, open the modal
 let modal = function (modalClick) {
+  closeModal();
   modalViews[modalClick].classList.add("active-modal");
+  document.body.classList.add("modal-open");
 };
 
 modalBtns.forEach((mb, i) => {
@@ -26,10 +75,18 @@ modalBtns.forEach((mb, i) => {
 
 modalClose.forEach((mc) => {
   mc.addEventListener("click", () => {
-    modalViews.forEach((mv) => {
-      mv.classList.remove("active-modal");
-    });
+    closeModal();
   });
+});
+
+modalViews.forEach((mv) => {
+  mv.addEventListener("click", (event) => {
+    if (event.target === mv) closeModal();
+  });
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") closeModal();
 });
 
 /*=============== MIXITUP FILTER PORTFOLIO ===============*/
@@ -149,7 +206,7 @@ const sr = ScrollReveal({
   distance: "60px",
   duration: 2500,
   delay: 400,
-  reset: true,
+  reset: false,
 });
 
 sr.reveal(`.nav__menu`, {
@@ -190,7 +247,7 @@ sr.reveal(`.skills__content`, {
   distance: "30px",
 });
 
-sr.reveal(`.services__title, services__button`, {
+sr.reveal(`.services__icon-box, .services__title, .services__preview, .services__button`, {
   delay: 100,
   scale: 0.9,
   origin: "top",
