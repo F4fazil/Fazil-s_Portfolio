@@ -89,6 +89,23 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") closeModal();
 });
 
+/*=============== WORK CARD TOGGLE ===============*/
+const workToggles = document.querySelectorAll(".work__toggle");
+
+workToggles.forEach((toggle) => {
+  toggle.addEventListener("click", () => {
+    const card = toggle.closest(".work__card");
+    card.classList.toggle("work__expanded");
+
+    const icon = toggle.querySelector(".work__toggle-icon");
+    if (card.classList.contains("work__expanded")) {
+      toggle.childNodes[0].textContent = "Hide Details ";
+    } else {
+      toggle.childNodes[0].textContent = "View Details ";
+    }
+  });
+});
+
 /*=============== MIXITUP FILTER PORTFOLIO ===============*/
 
 let mixer = mixitup(".work__container", {

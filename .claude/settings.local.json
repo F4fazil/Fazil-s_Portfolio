@@ -5,7 +5,8 @@
       "Bash(npx tsc -b)",
       "Bash(npx vite build)",
       "Bash(curl:*)",
-      "Bash(python3 -c ':*)"
+      "Bash(python3 -c ':*)",
+      "Bash(open:*)"
     ],
     "deny": [],
     "ask": []
